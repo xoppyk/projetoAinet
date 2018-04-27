@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -31,6 +32,17 @@ class UsersTableSeeder extends Seeder
 
         // Disclaimer: I'm using faker here because Model classes are developed by students
         $faker = Faker\Factory::create('pt_PT');
+        factory(User::class, 1)->create([
+            'email' => 'admin@ainet.pt',
+            'password' => bcrypt('123'),
+            'admin' => true
+        ]);
+
+        factory(User::class, 1)->create([
+            'email' => 'user@ainet.pt',
+            'password' => bcrypt('123'),
+            'admin' => false
+        ]);
 
 
         $this->command->info('Creating '.$this->numberOfNonAdminUsers.' active users...');
