@@ -14,3 +14,19 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+require_once('webUsers.php');
+require_once('webMe.php');
+Route::get('profiles', 'UserController@profiles' )->name('profiles');
+require_once('webAccounts.php');
+require_once('webMovements.php');
+require_once('webDocuments.php');
+Route::post('dashboard/{user}', 'DashboardController@show' )->name('dashboard.show');
+
+
+
+
