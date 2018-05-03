@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'admin', 'blocked', 'phone', 'profile_photo', 'profile_settings',
+        'name', 'email', 'admin', 'blocked', 'phone', 'profile_photo', 'profile_settings',
     ];
 
     /**
@@ -27,8 +27,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function acounts()
+
+    public function accounts()
     {
-        return $this->hasMany('App\Accounts');
+        return $this->hasMany('App\Account', 'owner_id');
     }
 }

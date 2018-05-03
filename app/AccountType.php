@@ -10,8 +10,8 @@ class AccountType extends Model
         'name',
     ];
 
-    public function acounts()
+    public function accounts()
     {
-        return $this->hasMany('App\Accounts');
+        return $this->hasMany('App\Account');
     }
 }

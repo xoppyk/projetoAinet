@@ -13,6 +13,6 @@ class MovementCategorie extends Model
 
     public function movements()
     {
-        return $this->hasMany('App\Movement');
+        return $this->hasMany('App\Movement', 'movement_category_id', 'id');
     }
 }

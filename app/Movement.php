@@ -22,7 +22,7 @@ class Movement extends Model
 
     public function movementCategorie()
     {
-        return $this->belongsTo('App\MovementCategorie');
+        return $this->belongsTo('App\MovementCategorie', 'movement_category_id');
     }
 
 }
