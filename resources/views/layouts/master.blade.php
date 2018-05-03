@@ -7,13 +7,13 @@
     <meta name="author" content="">
     <link rel="icon" href="../../../../favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Projeto Ainet</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
-
+    {{-- <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet"> --}}
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
     <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
   </head>
   <body>
 
@@ -27,7 +27,7 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
-              <h1 class="h2">Dashboard</h1>
+              <h1 class="h2">@yield('title')</h1>
               <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group mr-2">
                   <button class="btn btn-sm btn-outline-secondary">Share</button>
@@ -39,12 +39,15 @@
                 </button>
               </div>
             </div>
+            <div class="container">
+                @yield('content')
+            </div>
 
-            @include('partials.graphics')
+            {{-- @include('partials.graphics') --}}
 
-          <h2>Section title</h2>
+          {{-- <h2>Section title</h2> --}}
 
-          @include('partials.table')
+          {{-- @include('partials.table') --}}
 
         </main>
       </div>
