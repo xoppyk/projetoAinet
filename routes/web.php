@@ -18,15 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('dashboard/{user}', 'DashboardController@show' )->name('dashboard.show');
+Route::get('profiles', 'UserController@profiles' )->name('profiles');
 
 require_once('webUsers.php');
 require_once('webMe.php');
-Route::get('profiles', 'UserController@profiles' )->name('profiles');
 require_once('webAccounts.php');
 require_once('webMovements.php');
 require_once('webDocuments.php');
-Route::post('dashboard/{user}', 'DashboardController@show' )->name('dashboard.show');
-
-
-
-
