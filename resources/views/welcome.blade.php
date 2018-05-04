@@ -83,9 +83,9 @@
                 </div>
 
                 <div class="">
-                    <p>Total of Users : {{ \App\User::all()->count() }} &nbsp;
-                    Total of Accounts : {{ \App\Account::all()->count() }} &nbsp;
-                    Total of Movements : {{ \App\Movement::all()->count() }}</p>
+                    <p>Total of Users : {{ $totalOfUsers }} &nbsp;
+                    Total of Accounts : {{ $totalOfAccounts }} &nbsp;
+                    Total of Movements : {{ $totalOfMovements }}</p>
                 </div>
             </div>
         </div>
