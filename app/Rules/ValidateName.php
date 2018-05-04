@@ -4,18 +4,11 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class Name implements Rule
+/**
+ * [ValidateName will be validate if the name only contains spaces and letters]
+ */
+class ValidateName implements Rule
 {
-    /**
-     * Create a new rule instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
-
     /**
      * Determine if the validation rule passes.
      *
@@ -35,6 +28,6 @@ class Name implements Rule
      */
     public function message()
     {
-        return 'The validation error message.';
+        return 'The Name must be contains only Spaces and Letters';
     }
 }

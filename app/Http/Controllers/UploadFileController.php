@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-
-
 use Illuminate\Http\File;
-use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class what controll the Uploading File
+ */
 class UploadFileController extends Controller
 {
     public static function store($path, $file)
@@ -19,7 +18,7 @@ class UploadFileController extends Controller
     public static function splitPath($path)
     {
         $array = explode("/", $path);
-        return $array[2];
+        return end($array);
     }
 
     public static function fileValidate(File $file)

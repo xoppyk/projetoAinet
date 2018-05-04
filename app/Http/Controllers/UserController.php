@@ -8,6 +8,6 @@ class UserController extends Controller
 {
     public function profile($user)
     {
-        return view('me.profile');
+        return view('me.profile', compact('user'));
     }
 }
