@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\UploadFileController;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -49,10 +53,15 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
+            'name' => 'required|name|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-        ]);
+            'phone' => 'nullable|digits:9',
+            'profile_photo' => 'image',
+        ],[
+            'name' => 'Only Laters and Spaces'
+        ]
+    );
     }
 
     /**
@@ -63,10 +72,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $photo = $data['profile_photo'];
+        // if (FIle::$photo->isValid()){
+        //     return 'File Is Not Valid';
+        // }
+        // $path = Storage::putFile('public/profiles', $photo);
+        // if (!UploadFileController::fileValidate($photo)) {
+            // return 'Photo File is Invalid';
+        // }
+        $path = UploadFileController::store('public/profiles', $photo);
+        $photo_name = UploadFileController::splitPath($path);
+        // dd($path);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'profile_photo' => $photo_name,
+            'phone' => $data['phone'],
         ]);
+
     }
 }
