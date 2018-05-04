@@ -24,7 +24,4 @@ class Account extends Model
     {
         return $this->belongsTo('App\User', 'owner_id');
     }
-
-
-
 }
