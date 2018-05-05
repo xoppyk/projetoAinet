@@ -13,7 +13,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \Validator::extend('name', '\App\Rules\Name@passes');
+        // \Validator::extend('name', '\App\Rules\Name@passes');
+        \Blade::component('components.alert', 'alert');
     }
 
     /**

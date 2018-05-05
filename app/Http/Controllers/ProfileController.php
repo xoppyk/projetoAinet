@@ -24,6 +24,6 @@ class ProfileController extends Controller
 
         return redirect()
             ->route('home')
-            ->with('success', 'User Updated With Success');
+            ->with(['type' => 'success', 'message' => 'User Changed With Success']);
     }
 }
