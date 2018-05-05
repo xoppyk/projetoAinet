@@ -3,7 +3,7 @@
     {{-- <input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search"> --}}
     <ul class="navbar-nav px-3 ml-auto justify-content-end">
         <li class="nav-item text-nowrap">
-            <a href="{{route('me.edit', Auth::user())}}" class="nav-link">EditProfile</a>
+            <a href="{{route('me.editProfile', Auth::user())}}" class="nav-link">EditProfile</a>
         </li>
     </ul>
     <ul class="navbar-nav px-3 ml-auto justify-content-end">

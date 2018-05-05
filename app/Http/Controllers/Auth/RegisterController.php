@@ -72,12 +72,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if (!empty($data['profile_photo'])) {
+        if (!empty($data['profile_photo']) && $data['profile_photo']->isValid()) {
             $photo = $data['profile_photo'];
             //FIXME Perguntar ao stor
             $path = UploadFileController::store('public/profiles', $photo);
             $photo_name = UploadFileController::splitPath($path);
-
         }
 
         return User::create([
