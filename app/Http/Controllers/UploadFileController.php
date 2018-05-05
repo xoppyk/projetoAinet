@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\File;
+
+use League\Flysystem\File;
+
 use Illuminate\Support\Facades\Storage;
 
 /**

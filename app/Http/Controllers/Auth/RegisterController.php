@@ -57,7 +57,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', new ValidateName, 'max:255'],
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => 'required|string|min:3|confirmed',
             'phone' => 'nullable|digits:9',
             'profile_photo' => 'image',
         ]
@@ -72,18 +72,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $photo = $data['profile_photo'];
-        // if (!UploadFileController::fileValidate($photo)) {
-            // return 'Photo File is Invalid';
-        // }
-        //FIXME Perguntar ao stor
-        $path = UploadFileController::store('public/profiles', $photo);
-        $photo_name = UploadFileController::splitPath($path);
+        if (!empty($data['profile_photo'])) {
+            $photo = $data['profile_photo'];
+            //FIXME Perguntar ao stor
+            $path = UploadFileController::store('public/profiles', $photo);
+            $photo_name = UploadFileController::splitPath($path);
+
+        }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'profile_photo' => $photo_name,
+            'profile_photo' => $photo_name ?? null ,
             'phone' => $data['phone'],
         ]);
 

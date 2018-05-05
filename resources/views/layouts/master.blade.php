@@ -11,8 +11,10 @@
 
     <!-- Bootstrap core CSS -->
     {{-- <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet"> --}}
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/dashboard.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
+    {{-- TODO : perguntar ao Prof --}}
+    <link href="/css/dashboard.css" rel="stylesheet">
     <!-- Custom styles for this template -->
   </head>
   <body>
@@ -28,7 +30,8 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 
               <h1 class="h2">@yield('title')</h1>
-              <div class="btn-toolbar mb-2 mb-md-0">
+
+              {{-- <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group mr-2">
                   <button class="btn btn-sm btn-outline-secondary">Share</button>
                   <button class="btn btn-sm btn-outline-secondary">Export</button>
@@ -38,7 +41,8 @@
                   This week
                 </button>
               </div>
-            </div>
+            </div> --}}
+
             <div class="container">
                 @yield('content')
             </div>
@@ -56,10 +60,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
     <script src="../../../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../../../dist/js/bootstrap.min.js"></script>
+    <script src="../../../../dist/js/bootstrap.min.js"></script> --}}
 
     <!-- Icons -->
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
@@ -68,7 +72,7 @@
     </script>
 
     <!-- Graphs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
     <script>
       var ctx = document.getElementById("myChart");
       var myChart = new Chart(ctx, {
@@ -97,6 +101,6 @@
           }
         }
       });
-    </script>
+    </script> --}}
   </body>
 </html>
