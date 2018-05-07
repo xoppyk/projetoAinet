@@ -28,7 +28,15 @@ class ProfileController extends Controller
         $updatedUser = $request->validated();
         $user = Auth::user();
 
-        $user->fill($updatedUser);
+        if (!empty($updatedUser['profile_photo']) && UploadFileController::isValid($updatedUser['profile_photo'])) {
+            $photo_name = UploadFileController::store('public/profiles', $updatedUser['profile_photo']);
+            if ($user->profile_photo != null) {
+                DeleteFileController::deleteFile('public/profiles/'.$user->profile_photo);
+            }
+            $user->profile_photo = $photo_name;
+        }
+
+        $user->fill(array_except($updatedUser, 'profile_photo'));
         $user->save();
 
         return redirect()

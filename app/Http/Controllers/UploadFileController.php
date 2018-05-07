@@ -14,7 +14,7 @@ class UploadFileController extends Controller
 {
     public static function store($path, $file)
     {
-        return Storage::putFile($path, $file);
+        return UploadFileController::splitPath(Storage::putFile($path, $file));
     }
 
     public static function splitPath($path)
@@ -23,7 +23,7 @@ class UploadFileController extends Controller
         return end($array);
     }
 
-    public static function fileValidate(File $file)
+    public static function isValid($file)
     {
         return $file->isValid();
     }
