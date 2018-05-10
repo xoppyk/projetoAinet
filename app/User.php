@@ -47,4 +47,15 @@ class User extends Authenticatable
         return $this->belongsToMany('App\User', 'associate_members', 'associated_user_id', 'main_user_id')
             ->withPivot('created_at');
     }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->admin ? 'Admin' : '';
+    }
+
+    public function getIsBlockedAttribute()
+    {
+        return $this->blocked ? 'Blocked' : '';
+    }
+
 }

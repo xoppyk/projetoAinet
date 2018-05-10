@@ -8,9 +8,9 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="{{route('users.index')}}">
           <span data-feather="file"></span>
-          Orders
+          View All Users
         </a>
       </li>
       <li class="nav-item">
