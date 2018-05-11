@@ -55,12 +55,12 @@ class ProfileController extends Controller
         $user = Auth::user();
         // if (!Hash::check($user->password, $data['old_password'])) {
         // dump(Hash::($data['old_password']));
-        if (!Hash::check($data['old_password'], $user->password)) {
-            return redirect()
-                ->back()
-                ->with(['type' => 'danger', 'message' => 'Old Password is Wrong']);
-                // ->with(['errors' => ['old_password' => 'Old Password Is Wrong']]);
-        }
+        // if (!Hash::check($data['old_password'], $user->password)) {
+        //     return redirect()
+        //         ->back()
+        //         ->with(['type' => 'danger', 'message' => 'Old Password is Wrong']);
+        //         // ->with(['errors' => ['old_password' => 'Old Password Is Wrong']]);
+        // }
 
         $user->password = bcrypt($data['password']);
         $user->save();
