@@ -7,4 +7,3 @@ if [ $# -ne 2 ]; then
 fi
 TESTSUITE=$(printf 'UserStory%02dTest' $1)
 vendor/bin/phpunit --filter "$TESTSUITE::$2" --testdox
-#potato
