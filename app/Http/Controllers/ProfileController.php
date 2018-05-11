@@ -28,10 +28,10 @@ class ProfileController extends Controller
         $updatedUser = $request->validated();
         $user = Auth::user();
 
-        if (!empty($updatedUser['profile_photo']) && UploadFileController::isValid($updatedUser['profile_photo'])) {
-            $photo_name = UploadFileController::store('public/profiles', $updatedUser['profile_photo']);
+        if (!empty($updatedUser['profile_photo'])) {
+            $photo_name = basename($data['profile_photo']->store('profiles','public'));
             if ($user->profile_photo != null) {
-                DeleteFileController::deleteFile('public/profiles/'.$user->profile_photo);
+                Storage::delete('public/profiles/'.$user->profile_photo);
             }
             $user->profile_photo = $photo_name;
         }

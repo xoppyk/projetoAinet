@@ -24,7 +24,7 @@ class UserUpdatePassword extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => 'required|string|min:3',
+            'old_password' => ['required','string','min:3', new ValidateName(\Auth::user()->password),
             'password' => 'required|string|min:3|confirmed'
         ];
     }

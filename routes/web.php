@@ -20,8 +20,8 @@ Route::post('dashboard/{user}', 'DashboardController@show' )->name('dashboard.sh
 
 Route::get('profiles', 'UserController@index' )->name('users.index');
 
-require_once('webUsers.php');
-require_once('webMe.php');
-require_once('webAccounts.php');
-require_once('webMovements.php');
-require_once('webDocuments.php');
+require('webUsers.php');
+require('webMe.php');
+require('webAccounts.php');
+require('webMovements.php');
+require('webDocuments.php');
