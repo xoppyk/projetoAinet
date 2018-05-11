@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ProfileChangePassword;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserUpdatePassword extends FormRequest
 {
@@ -24,8 +26,8 @@ class UserUpdatePassword extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => ['required','string','min:3', new ValidateName(\Auth::user()->password),
-            'password' => 'required|string|min:3|confirmed'
+            'old_password' => ['required','string','min:3', new ProfileChangePassword(Auth::user()->password)],
+            'password' => 'required|string|min:3|confirmed',
         ];
     }
 }

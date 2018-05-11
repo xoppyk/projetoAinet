@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileChangePassword implements Rule
 {
@@ -11,11 +12,10 @@ class ProfileChangePassword implements Rule
      *
      * @return void
      */
-
-    protected $password;
+    private $potato;
     public function __construct($oldPassword)
     {
-        $this->password = $oldPassword;
+        $this->potato = $oldPassword;
     }
 
     /**
@@ -25,11 +25,12 @@ class ProfileChangePassword implements Rule
      * @param  mixed  $value
      * @return bool
      */
-    public function passes($attribute, $value, $passord)
-    {
-        if (Hash::check($value, $password)) {
+    public function passes($attribute, $value)
+    {   
+        if (Hash::check($value, $this->potato)) {
             return true;
         }
+        return false;
     }
 
     /**
