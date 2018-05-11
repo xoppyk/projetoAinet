@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 
 use App\Rules\ValidateName;
+use App\Rules\ValidatePhone;
 
 use Illuminate\Http\File;
 
@@ -58,7 +59,7 @@ class RegisterController extends Controller
             'name' => ['required', new ValidateName, 'max:255'],
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:3|confirmed',
-            'phone' => 'nullable|digits:9',
+            'phone' => ['nullable', new ValidatePhone],
             'profile_photo' => 'image',
         ]
     );
@@ -72,9 +73,9 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //FIXME Perguntar ao stor
-        if (!empty($data['profile_photo']) && UploadFileController::isValid($data['profile_photo'])) {
-            $photo_name = UploadFileController::store('public/profiles', $data['profile_photo']);
+        //FIXME Perguntar ao storo
+        if (!empty($data['profile_photo'])) {
+            $photo_name = basename($data['profile_photo']->store('profiles','public'));
         }
 
         return User::create([
@@ -82,7 +83,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'profile_photo' => $photo_name ?? null ,
-            'phone' => $data['phone'],
+            'phone' => $data['phone'] ?? null,
         ]);
 
     }
