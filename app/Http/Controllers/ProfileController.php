@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    //FIXME Tentar Usar isto
-    // public function __constructor()
-    // {
-    //     $this->$user = \Auth::user();
-    // }
+     public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function editProfile()
     {
         $user = Auth::user();
