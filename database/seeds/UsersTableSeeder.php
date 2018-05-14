@@ -68,13 +68,13 @@ class UsersTableSeeder extends Seeder
         $faker = Faker\Factory::create('pt_PT');
         factory(User::class, 1)->create([
             'email' => 'admin@ainet.pt',
-            'password' => bcrypt('123'),
+            'password' => bcrypt('secret'),
             'admin' => true
         ]);
 
         factory(User::class, 1)->create([
             'email' => 'user@ainet.pt',
-            'password' => bcrypt('123'),
+            'password' => bcrypt('secret'),
             'admin' => false
         ]);
 

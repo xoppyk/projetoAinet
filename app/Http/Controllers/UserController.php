@@ -13,8 +13,9 @@ class UserController extends Controller
     public function index()
     {
         $this->authorize('index', User::class);
-        
-        $users = User::all();
+        $users = User::latest()
+            ->filter(request(['status', 'type', 'name']))
+            ->paginate(5);
         return view('users.index', compact('users'));
     }
 }

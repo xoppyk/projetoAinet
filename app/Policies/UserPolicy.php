@@ -21,4 +21,8 @@ class UserPolicy
         return false;
     }
 
+    public function updatePassword(User $user, User $model)
+    {
+        return $user->id === $model->id;
+    }
 }

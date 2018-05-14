@@ -57,4 +57,27 @@ class User extends Authenticatable
     {
         return $this->blocked ? 'Blocked' : '';
     }
+
+    public function scopeFilter($query, $filters)
+    {
+        if (isset($filters['status'])) {
+            if ($filters['status'] == 'blocked') {
+                $query->where('blocked', true);
+            } elseif ($filters['status'] == 'unblocked') {
+                $query->where('blocked', false);
+            }
+        }
+
+        if (isset($filters['type'])) {
+            if ($filters['type'] === 'admin') {
+                $query->where('admin', true);
+            } elseif ($filters['type'] === 'normal') {
+                $query->where('admin', false);
+            }
+        }
+
+        if (isset($filters['name'])) {
+            $query->where('name', 'like', '%'.$filters['name'].'%');
+        }
+    }
 }

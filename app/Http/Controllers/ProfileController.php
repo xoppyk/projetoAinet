@@ -12,6 +12,10 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     //FIXME Tentar Usar isto
     // public function __constructor()
     // {
@@ -51,8 +55,10 @@ class ProfileController extends Controller
 
     public function updatePassword(UserUpdatePassword $request)
     {
-        $data = $request->validated();
         $user = Auth::user();
+        $this->authorize('updatePassword', $user);
+
+        $data = $request->validated();
         // if (!Hash::check($user->password, $data['old_password'])) {
         // dump(Hash::($data['old_password']));
         // if (!Hash::check($data['old_password'], $user->password)) {
