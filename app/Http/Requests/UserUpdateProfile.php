@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Rules\ValidateName;
+use App\Rules\ValidatePhone;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -27,9 +28,9 @@ class UserUpdateProfile extends FormRequest
     {
         $user = \Auth::user();
         return [
-            'name' => new ValidateName,
+            'name' => ['required', new ValidateName],
             'email' => 'required|email|unique:users,email,'.$user->id,
-            'phone' => 'nullable|digits:9',
+            'phone' => ['nullable', new ValidatePhone],
             'profile_photo' => 'image',
         ];
     }

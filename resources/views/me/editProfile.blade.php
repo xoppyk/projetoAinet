@@ -5,7 +5,7 @@
 
         <form class="form-horizontal" role="form" method="POST" action="{{ route('me.updateProfile', $user) }}" enctype="multipart/form-data">
             @csrf
-            @method('patch')
+            @method('put')
 
 			{{-- Profile Photo --}}
 			<div class="row">

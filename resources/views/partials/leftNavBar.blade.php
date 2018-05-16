@@ -7,12 +7,12 @@
           Dashboard <span class="sr-only">(current)</span>
         </a>
       </li>
-      {{-- <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="shopping-cart"></span>
-          Products
+    <li class="nav-item">
+        <a class="nav-link" href="{{route('me.index')}}">
+          <span data-feather="file"></span>
+          Profiles
         </a>
-      </li>
+    </li> {{--
       <li class="nav-item">
         <a class="nav-link" href="#">
           <span data-feather="users"></span>

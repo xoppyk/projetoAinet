@@ -8,11 +8,11 @@ use Gate;
 
 class UserController extends Controller
 {
-    const NUM_PER_PAGE = 20;
+    const NUM_PER_PAGE = 30;
 
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware(['auth', 'admin']);
     }
     public function index()
     {

@@ -12,10 +12,24 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    const NUM_PER_PAGE = 30;
+
     public function __construct()
     {
         $this->middleware(['auth', 'himself']);
     }
+
+    public function index()
+    {
+        $user = \Auth::user();
+        $users = User::paginate(static::NUM_PER_PAGE);
+
+        $associates = $user->associates()->get()->id;
+        $associatesOf = $user->associatesOf()->get();
+
+        return view('me.index', compact('users', 'associates', 'associatesOf'));
+    }
+
     //FIXME Tentar Usar isto
     // public function __constructor()
     // {
@@ -34,13 +48,15 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         if (!empty($updatedUser['profile_photo'])) {
-            $photo_name = basename($data['profile_photo']->store('profiles','public'));
+            $photo_name = basename($request['profile_photo']->store('profiles','public'));
             if ($user->profile_photo != null) {
                 Storage::delete('public/profiles/'.$user->profile_photo);
             }
             $user->profile_photo = $photo_name;
         }
-
+        if (empty($updatedUser->phone)) {
+            $user->phone = null;
+        }
         $user->fill(array_except($updatedUser, 'profile_photo'));
         $user->save();
 

@@ -18,8 +18,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::post('dashboard/{user}', 'DashboardController@show' )->name('dashboard.show');
 
-Route::get('profiles', 'UserController@index' )->name('users.index');
-
 require('webUsers.php');
 require('webMe.php');
 require('webAccounts.php');
