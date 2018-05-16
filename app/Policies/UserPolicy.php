@@ -11,7 +11,7 @@ class UserPolicy
 
     public function before($user, $ability)
     {
-        if ($user->admin) {
+        if ($user->admin && $ability != 'himself') {
             return true;
         }
     }
@@ -21,8 +21,19 @@ class UserPolicy
         return false;
     }
 
+    public function block(User $user)
+    {
+        return false;
+    }
+
     public function updatePassword(User $user, User $model)
     {
         return $user->id === $model->id;
     }
+
+    public function himself(User $user, User $model)
+    {
+        return $user->id !== $model->id;
+    }
+
 }

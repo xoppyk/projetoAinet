@@ -14,13 +14,14 @@ class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'himself']);
     }
     //FIXME Tentar Usar isto
     // public function __constructor()
     // {
     //     $this->$user = \Auth::user();
     // }
+
     public function editProfile()
     {
         $user = Auth::user();
