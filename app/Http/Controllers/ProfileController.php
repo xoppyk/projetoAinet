@@ -24,7 +24,7 @@ class ProfileController extends Controller
         $user = \Auth::user();
         $users = User::paginate(static::NUM_PER_PAGE);
 
-        $associates = $user->associates()->get()->id;
+        $associates = $user->associates()->get();
         $associatesOf = $user->associatesOf()->get();
 
         return view('me.index', compact('users', 'associates', 'associatesOf'));

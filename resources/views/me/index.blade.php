@@ -46,10 +46,10 @@
             <td>Photo</td>
             <td>{{ $user->id}}</td>
             <td>{{ $user->name}}</td>
-            {{-- <td>{{ array_has($associates, $user->id) ? 'X' : '' }}</td> --}}
-            @dd($associates)
+            <td>{{ $associates->contains($user) ? 'S' : ''}}</td>
+            <td>{{ $associatesOf->contains($user) ? 'S' : ''}}</td>
         </tr>
-        @endforeach
+    @endforeach
         </tbody>
     </table>
     <tfoot>
