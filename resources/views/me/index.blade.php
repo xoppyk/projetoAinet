@@ -46,12 +46,21 @@
             <td>Photo</td>
             <td>{{ $user->id}}</td>
             <td>{{ $user->name}}</td>
-            <td>{{ $associates->contains($user) ? 'S' : ''}}</td>
-            <td>{{ $associatesOf->contains($user) ? 'S' : ''}}</td>
+            <td>
+                @if($associates->contains($user))
+                    <span>associate</span>
+                @endif
+            </td>
+            <td> 
+                @if($associates->contains($user))
+                    <span>associate-of</span>
+                @endif
+            </td>
         </tr>
     @endforeach
         </tbody>
     </table>
+    associate
     <tfoot>
         <nav aria-label="Page of Users">
             <ul class="pagination justify-content-center">
