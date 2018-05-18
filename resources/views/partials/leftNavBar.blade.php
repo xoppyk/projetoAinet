@@ -18,6 +18,12 @@
           <span data-feather="file"></span>
           Associates
         </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('me.associatesOf')}}">
+          <span data-feather="file"></span>
+          Associates Of
+        </a>
       </li>{{--
       <li class="nav-item">
         <a class="nav-link" href="#">

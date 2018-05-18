@@ -10,5 +10,5 @@ Route::patch('/me/password',  'ProfileController@updatePassword')->name('me.upda
 Route::get('/me/associates',  'ProfileController@associates')->name('me.associates');
 Route::post('/me/associates',  'ProfileController@storeAssociates')->name('me.storeAssociates');
 
-Route::get('/me/associate-of',  'ProfileController@associate-of')->name('me.associate-of');
+Route::get('/me/associate-of',  'ProfileController@associatesOf')->name('me.associatesOf');
 Route::delete('/me/associates/{user}',  'ProfileController@destroyAssociates')->name('me.deleteAssociates');

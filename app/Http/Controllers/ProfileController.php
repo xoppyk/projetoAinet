@@ -33,12 +33,6 @@ class ProfileController extends Controller
         return view('me.index', compact('users', 'associates', 'associatesOf'));
     }
 
-    //FIXME Tentar Usar isto
-    // public function __constructor()
-    // {
-    //     $this->$user = \Auth::user();
-    // }
-
     public function editProfile()
     {
         $user = Auth::user();
@@ -102,6 +96,13 @@ class ProfileController extends Controller
         $associates = \Auth::user()->associates()->get();
         $associates = $associates->toArray();
         return view('me.associates', compact('associates'));
+    }
+
+     public function associatesOf(){ 
+        
+        $associatesOf = \Auth::user()->associatesOf()->get();
+        $associatesOf = $associatesOf->toArray();
+        return view('me.associatesOf', compact('associatesOf'));
     }
 
 }
