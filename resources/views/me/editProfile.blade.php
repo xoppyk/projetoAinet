@@ -11,7 +11,7 @@
 			<div class="row">
     			<div class="col personal-info">
         			<div class="form-group">
-        				<img src="{{Storage::url('profiles/'.$user->profile_photo)}}" class="img-thumbnail rounded-circle" alt="avatar">
+        				<img src="{{profile_photo($user)}}" class="img-thumbnail rounded-circle" alt="avatar">
         				<h6>Upload a different photo...</h6>
         				<input type="file" class="form-control" name="profile_photo">
         			</div>

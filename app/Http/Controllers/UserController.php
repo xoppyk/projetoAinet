@@ -8,7 +8,7 @@ use Gate;
 
 class UserController extends Controller
 {
-    const NUM_PER_PAGE = 30;
+    const NUM_PER_PAGE = 10;
 
     public function __construct()
     {
@@ -20,7 +20,17 @@ class UserController extends Controller
             ->filter(request(['status', 'type', 'name']))
             ->paginate(static::NUM_PER_PAGE);
 
+
         return view('users.index', compact('users'));
+    }
+
+
+    public function toggleState(User $user)
+    {
+        if ($user->blocked) {
+            return $this->unblock($user);
+        }
+        return $this->block($user);
     }
 
     public function unblock(User $user)
@@ -34,6 +44,7 @@ class UserController extends Controller
             ->with(['type' => 'success', 'message' => 'User Unblocked']);
     }
 
+
     public function block(User $user)
     {
         $this->ifHimSelf($user);
@@ -44,6 +55,15 @@ class UserController extends Controller
             ->route('users.index')
             ->with(['type' => 'success', 'message' => 'User Blocked']);
     }
+
+    public function toggleType(User $user)
+    {
+        if ($user->admin) {
+            return $this->demote($user);
+        }
+        return $this->promote($user);
+    }
+
 
     public function promote(User $user)
     {

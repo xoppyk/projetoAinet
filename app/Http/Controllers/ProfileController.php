@@ -22,7 +22,10 @@ class ProfileController extends Controller
     public function index()
     {
         $user = \Auth::user();
-        $users = User::paginate(static::NUM_PER_PAGE);
+
+        $users = User::latest()
+            ->filter(request(['name']))
+            ->paginate(static::NUM_PER_PAGE);
 
         $associates = $user->associates()->get();
         $associatesOf = $user->associatesOf()->get();

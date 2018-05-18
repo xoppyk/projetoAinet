@@ -15,6 +15,10 @@ class AppServiceProvider extends ServiceProvider
     {
         // \Validator::extend('name', '\App\Rules\Name@passes');
         \Blade::component('components.alert', 'alert');
+        \Blade::component('components.select-filter', 'selectFilter');
+        \Blade::component('components.input-name', 'nameFilter');
+        \Blade::component('components.form-filter', 'formFilter');
+        \Blade::component('components.input-submit', 'submitButton');
     }
 
     /**
