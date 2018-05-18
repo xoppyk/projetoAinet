@@ -96,4 +96,12 @@ class ProfileController extends Controller
             ->with(['type' => 'success', 'message' => 'Password Changed With Success']);
 
     }
+
+    public function associates(){ 
+        
+        $associates = \Auth::user()->associates()->get();
+        $associates = $associates->toArray();
+        return view('me.associates', compact('associates'));
+    }
+
 }

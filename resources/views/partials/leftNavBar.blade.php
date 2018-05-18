@@ -12,13 +12,13 @@
           <span data-feather="file"></span>
           Profiles
         </a>
-    </li> {{--
+    </li> 
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="users"></span>
-          Customers
+        <a class="nav-link" href="{{route('me.associates')}}">
+          <span data-feather="file"></span>
+          Associates
         </a>
-      </li>
+      </li>{{--
       <li class="nav-item">
         <a class="nav-link" href="#">
           <span data-feather="bar-chart-2"></span>
