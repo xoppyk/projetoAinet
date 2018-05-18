@@ -48,19 +48,19 @@
             <td>{{ $user->name}}</td>
             <td>
                 @if($associates->contains($user))
-                    <span>associate</span>
+                    associate
                 @endif
             </td>
             <td> 
                 @if($associates->contains($user))
-                    <span>associate-of</span>
+                    associates-of
                 @endif
             </td>
         </tr>
     @endforeach
         </tbody>
     </table>
-    associate
+    
     <tfoot>
         <nav aria-label="Page of Users">
             <ul class="pagination justify-content-center">
