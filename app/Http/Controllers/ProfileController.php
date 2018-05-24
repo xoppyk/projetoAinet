@@ -14,11 +14,6 @@ class ProfileController extends Controller
 {
     const NUM_PER_PAGE = 30;
 
-    public function __construct()
-    {
-        $this->middleware(['auth', 'himself']);
-    }
-
     public function index()
     {
         $user = \Auth::user();
@@ -36,7 +31,7 @@ class ProfileController extends Controller
     public function editProfile()
     {
         $user = Auth::user();
-        return view('me.editProfile', compact('user'));
+        return view('me.profile.editProfile', compact('user'));
     }
 
     public function updateProfile(UserUpdateProfile $request)
@@ -54,6 +49,7 @@ class ProfileController extends Controller
         if (empty($updatedUser->phone)) {
             $user->phone = null;
         }
+
         $user->fill(array_except($updatedUser, 'profile_photo'));
         $user->save();
 
@@ -64,7 +60,7 @@ class ProfileController extends Controller
 
     public function editPassword()
     {
-        return view('me.editPassword');
+        return view('me.profile.editPassword');
     }
 
     public function updatePassword(UserUpdatePassword $request)
@@ -73,35 +69,24 @@ class ProfileController extends Controller
         $this->authorize('updatePassword', $user);
 
         $data = $request->validated();
-        // if (!Hash::check($user->password, $data['old_password'])) {
-        // dump(Hash::($data['old_password']));
-        // if (!Hash::check($data['old_password'], $user->password)) {
-        //     return redirect()
-        //         ->back()
-        //         ->with(['type' => 'danger', 'message' => 'Old Password is Wrong']);
-        //         // ->with(['errors' => ['old_password' => 'Old Password Is Wrong']]);
-        // }
 
         $user->password = bcrypt($data['password']);
         $user->save();
 
         return redirect()
-            ->route('me.editProfile')
+            ->route('me.profile.editProfile')
             ->with(['type' => 'success', 'message' => 'Password Changed With Success']);
-
     }
 
-    public function associates(){ 
-        
-        $associates = \Auth::user()->associates()->get();
-        $associates = $associates->toArray();
+    public function associates(){
+
+        $associates = \Auth::user()->associates()->paginate(static::NUM_PER_PAGE);
         return view('me.associates', compact('associates'));
     }
 
-     public function associatesOf(){ 
-        
-        $associatesOf = \Auth::user()->associatesOf()->get();
-        $associatesOf = $associatesOf->toArray();
+     public function associatesOf(){
+
+        $associatesOf = \Auth::user()->associatesOf()->paginate(static::NUM_PER_PAGE);
         return view('me.associatesOf', compact('associatesOf'));
     }
 

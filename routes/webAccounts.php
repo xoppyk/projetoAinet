@@ -1,13 +1,12 @@
 <?php
 
-Route::get('/accounts/{user}', 'AccountController@index' )->name('accounts.index');
-Route::get('/accounts/{user}/opened', 'AccountController@showOpenedAccounts' )->name('accounts.showOpenedAccounts');
-Route::get('/accounts/{user}/closed', 'AccountController@showClosed' )->name('accounts.showClosed');
-Route::delete('/accounts/{account}', 'AccountController@destroy' )->name('accounts.destroy');
-Route::patch('/accounts/{account}/close', 'AccountController@close' )->name('accounts.close');
-Route::patch('/accounts/{account}/reopen', 'AccountController@reopen' )->name('accounts.reopen');
-Route::put('/accounts', 'AccountController@store' )->name('accounts.store');
-Route::get('/accounts/{account}', 'AccountController@show' )->name('accounts.show');
-
-
-
+Route::middleware(['auth'])->name('accounts.')->group(function () {
+    Route::get('/accounts/{user}', 'AccountController@ofUser' )->name('ofUser');
+    Route::get('/accounts/{user}/opened', 'AccountController@showOpenedAccounts' )->name('showOpenedAccounts');
+    Route::get('/accounts/{user}/closed', 'AccountController@showClosed' )->name('showClosed');
+    Route::delete('/accounts/{account}', 'AccountController@destroy' )->name('delete');
+    Route::patch('/accounts/{account}/close', 'AccountController@close' )->name('close');
+    Route::patch('/accounts/{account}/reopen', 'AccountController@reopen' )->name('reopen');
+    Route::put('/accounts', 'AccountController@store' )->name('store');
+    Route::get('/accounts/{account}', 'AccountController@show' )->name('show');
+});

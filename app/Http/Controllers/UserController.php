@@ -10,10 +10,6 @@ class UserController extends Controller
 {
     const NUM_PER_PAGE = 10;
 
-    public function __construct()
-    {
-        $this->middleware(['auth', 'admin']);
-    }
     public function index()
     {
         $users = User::latest()
@@ -21,7 +17,7 @@ class UserController extends Controller
             ->paginate(static::NUM_PER_PAGE);
 
 
-        return view('users.index', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 
 
@@ -40,7 +36,7 @@ class UserController extends Controller
         $user->blocked = 0;
         $user->save();
         return redirect()
-            ->route('users.index')
+            ->route('admin.users.index')
             ->with(['type' => 'success', 'message' => 'User Unblocked']);
     }
 
@@ -52,7 +48,7 @@ class UserController extends Controller
         $user->blocked = 1;
         $user->save();
         return redirect()
-            ->route('users.index')
+            ->route('admin.users.index')
             ->with(['type' => 'success', 'message' => 'User Blocked']);
     }
 
@@ -72,7 +68,7 @@ class UserController extends Controller
         $user->admin = 1;
         $user->save();
         return redirect()
-            ->route('users.index')
+            ->route('admin.users.index')
             ->with(['type' => 'success', 'message' => 'User Promoted']);
     }
 
@@ -85,7 +81,7 @@ class UserController extends Controller
         $user->admin = 0;
         $user->save();
         return redirect()
-            ->route('users.index')
+            ->route('admin.users.index')
             ->with(['type' => 'success', 'message' => 'User Demoted']);
     }
 

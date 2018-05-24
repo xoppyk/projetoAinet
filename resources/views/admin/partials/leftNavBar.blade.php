@@ -7,7 +7,7 @@
     <ul class="nav flex-column mb-2">
 
             <li class="nav-item">
-                <a class="nav-link" href="{{route('users.index')}}">
+                <a class="nav-link {{leftNavBarActive('admin.users.index')}}" href="{{route('admin.users.index')}}">
                   <span data-feather="file"></span>
                   View all users
                 </a>
