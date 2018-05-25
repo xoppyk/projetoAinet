@@ -3,6 +3,10 @@
 @section('title', 'List Of Accounts')
 @section('content')
     @if(count($accounts))
+        <a href="{{route('accounts.ofUser', $user)}}" class="btn btn-primary">All Accounts</a>
+        <a href="{{route('accounts.ofUserOpened', $user)}}" class="btn btn-success">Opened Accounts</a>
+        <a href="{{route('accounts.ofUserClosed', $user)}}" class="btn btn-warning">Closed Accounts</a>
+        <hr>
         <table class="table table-bordered table-hover table-responsive-md">
         <thead class="thead-dark">
             <tr class="text-center">

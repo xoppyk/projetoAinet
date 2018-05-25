@@ -24,7 +24,16 @@
           <span data-feather="file"></span>
           Associates Of
         </a>
-      </li>{{--
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link {{leftNavBarActive('accounts.ofUser')}}" href="{{route('accounts.ofUser', \Auth::user())}}">
+          <span data-feather="file"></span>
+          My Accounts
+        </a>
+      </li>
+
+      {{--
       <li class="nav-item">
         <a class="nav-link" href="#">
           <span data-feather="bar-chart-2"></span>

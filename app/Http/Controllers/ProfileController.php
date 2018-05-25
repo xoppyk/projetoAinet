@@ -74,7 +74,7 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect()
-            ->route('me.profile.editProfile')
+            ->route('me.editProfile')
             ->with(['type' => 'success', 'message' => 'Password Changed With Success']);
     }
 

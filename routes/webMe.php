@@ -1,6 +1,6 @@
 <?php
 
-Route::middleware(['auth', 'himself'])->name('me.')->group(function () {
+Route::middleware(['auth'])->name('me.')->group(function () {
     Route::get('profiles', 'ProfileController@index' )->name('index');
     Route::get('/me/profile',  'ProfileController@editProfile')->name('editProfile');
     Route::get('/me/profile/editPassword',  'ProfileController@editPassword')->name('editPassword');

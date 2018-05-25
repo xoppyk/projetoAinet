@@ -12,12 +12,11 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($associatesOf as $user)
+            @foreach ($associatesOf as $associateUser)
                 <tr class="text-center">
-                    <td>{{$user->name}}</td>
-                    <td> {{$user->email}} </td>
-                    <td> <a href="{{route('accounts.ofUser', $user)}}" class="btn btn-primary">Accounts</a> </td>
-
+                    <td>{{$associateUser->name}}</td>
+                    <td> {{$associateUser->email}} </td>
+                    <td> <a href="{{route('accounts.ofUser', $associateUser)}}" class="btn btn-primary">Accounts</a> </td>
                 </tr>
             @endforeach
         </tbody>

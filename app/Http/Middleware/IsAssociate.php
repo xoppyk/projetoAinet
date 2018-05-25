@@ -6,7 +6,8 @@ use Closure;
 use Route;
 
 use App\User;
-class IsHimself
+
+class IsAssociate
 {
     /**
      * Handle an incoming request.
@@ -18,10 +19,10 @@ class IsHimself
     public function handle($request, Closure $next)
     {
         $user = route::current()->parameter('user');
-        if (isset($user) && !($user instanceof User)) {
+        if (!$user instanceof User) {
             abort(400, 'Some Wrong');
         }
-        if ($request->user() && $request->user()->id == $user->id) {
+        if ($request->user() && $request->user()->id == $user->id || $request->user()->associatesOf()->get()->contains($user)) {
             return $next($request);
         }
         abort(403, 'Not Authorized');
