@@ -19,7 +19,7 @@ class IsHimself
     {
         $user = route::current()->parameter('user');
         if (isset($user) && !($user instanceof User)) {
-            abort(400, 'Some Wrong');
+            abort(400, 'Something Wrong');
         }
         if ($request->user() && $request->user()->id == $user->id) {
             return $next($request);

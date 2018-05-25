@@ -13,6 +13,7 @@
                 <th scope="col">Code</th>
                 <th scope="col">Type</th>
                 <th scope="col">Current Balance</th>
+                <th scope="col">Deleteable</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,14 @@
                 <td>{{$account->code}}</td>
                 <td> {{$account->accountType->name}} </td>
                 <td> {{$account->current_balance}} </td>
+                <td> 
+                    <form action="{{route('accounts.delete', $account)}}" method="POST" role="form" class="inline">
+                        @method('delete')
+                        @csrf
+                        <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                    </form> 
+                </td>
+
             </tr>
         @endforeach
             </tbody>
