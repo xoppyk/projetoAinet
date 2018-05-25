@@ -2,25 +2,25 @@
   <div class="sidebar-sticky">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" href="#">
+        <a class="nav-link {{leftNavBarActive('dashboard')}}" href="#">
           <span data-feather="home"></span>
           Dashboard <span class="sr-only">(current)</span>
         </a>
       </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{route('me.index')}}">
+        <a class="nav-link {{leftNavBarActive('me.index')}}" href="{{route('me.index')}}">
           <span data-feather="file"></span>
           Profiles
         </a>
-    </li> 
+    </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{route('me.associates')}}">
+        <a class="nav-link {{leftNavBarActive('me.associates')}}" href="{{route('me.associates')}}">
           <span data-feather="file"></span>
           Associates
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="{{route('me.associatesOf')}}">
+        <a class="nav-link {{leftNavBarActive('me.associatesOf')}}" href="{{route('me.associatesOf')}}">
           <span data-feather="file"></span>
           Associates Of
         </a>

@@ -2,7 +2,7 @@
 
 @section('title', 'List Of All Users')
 @section('content')
-    @formFilter(['route' => 'users.index'])
+    @formFilter(['route' => 'admin.users.index'])
         <div class="d-inline-flex align-items-center p-2">
             @selectFilter([
                 'name' => 'type',
@@ -14,14 +14,13 @@
             ])
             @endselectFilter
             &nbsp;
-                @selectFilter([
-                    'name' => 'status',
-                    'label' => 'Status:',
-                    'options' => [
-                        ['block', 'Blocked'],
-                        ['unblock', 'Ublocked'],
-                    ]
-                ])
+            @selectFilter([
+                'name' => 'status',
+                'label' => 'Status:',
+                'options' => [
+                    ['block', 'Blocked'],
+                    ['unblock', 'Ublocked'],
+                ]])
                 @endselectFilter
         </div>
         <div class="d-inline-flex ml-auto align-items-center  p-2">
@@ -57,7 +56,7 @@
             <td>
                 <div class="d-flex justify-content-around">
                     @if (Auth::user()->can('himself', $user))
-                            <form action="{{route('users.toggleState', $user->id)}}" method="POST">
+                            <form action="{{route('admin.users.toggleState', $user->id)}}" method="POST">
                                 @method('patch')
                                 @csrf
                                 @if ($user->blocked)
@@ -67,7 +66,7 @@
                                 @endif
                             </form>
                         &nbsp;
-                            <form action="{{route('users.toggleType', $user->id)}}" method="POST">
+                            <form action="{{route('admin.users.toggleType', $user->id)}}" method="POST">
                                 @method('patch')
                                 @csrf
                                 @if ($user->admin)

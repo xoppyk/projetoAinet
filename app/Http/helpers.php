@@ -43,3 +43,8 @@ function userClassAssossiate($user)
     }
     return '';
 }
+
+function leftNavBarActive($value)
+{
+    return $value == Route::currentRouteName() ? 'active' : '';
+}
