@@ -35,13 +35,21 @@ class AccountController extends Controller
             return abort(403, 'Can not delete account with movements');
         }
         if(\Auth::id() != $account->owner_id){
-           return abort(403, 'User can only delete his account');
+           return abort(403, 'Only owner can delete this account');
         }
 
-        $account->delete();
+        $account->forceDelete();
         return redirect()
         ->route('accounts.ofUser', \Auth::user())
         ->with('success', 'Account deleted successfully.');
+    }
+
+    public function close(Account $account){
+        if(\Auth::id() != $account->owner_id){
+           return abort(403, 'Only owner can delete this account');
+        }
+        $account->delete();
+
     }
 
     
