@@ -13,7 +13,7 @@
                 <th scope="col">Code</th>
                 <th scope="col">Type</th>
                 <th scope="col">Current Balance</th>
-                <th scope="col">Deleteable</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -22,12 +22,25 @@
                 <td>{{$account->code}}</td>
                 <td> {{$account->accountType->name}} </td>
                 <td> {{$account->current_balance}} </td>
-                <td> 
-                    <form action="{{route('accounts.delete', $account)}}" method="POST" role="form" class="inline">
+                <td>
+                    @if (!$account->trashed())
+                            <form action="{{route('account.close', $account)}}" method="POST" role="form" class="inline">
+                                @method('patch')
+                                @csrf
+                                <button type="submit" class="btn btn-xs btn-warning">Close</button>
+                            </form>
+                    @else
+                        <form action="{{route('account.reopen', $account->id)}}" method="POST" role="form" class="inline">
+                            @method('patch')
+                            @csrf
+                            <button type="submit" class="btn btn-xs btn-success">Reopen</button>
+                        </form>
+                    @endif
+                    <form action="{{route('account.delete', $account->id)}}" method="POST" role="form" class="inline">
                         @method('delete')
                         @csrf
                         <button type="submit" class="btn btn-xs btn-danger">Delete</button>
-                    </form> 
+                    </form>
                 </td>
 
             </tr>

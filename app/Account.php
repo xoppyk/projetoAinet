@@ -16,8 +16,9 @@ class Account extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
+    
+    public $timestamps = false;
 
-    const UPDATED_AT = 'last_movement_date';
     protected $fillable = [
         'owner_id', 'account_type_id', 'date', 'code', 'description', 'start_balance', 'current_balance', 'last_movement_date',
     ];

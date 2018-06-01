@@ -33,19 +33,13 @@
         </a>
       </li>
 
-      {{--
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="bar-chart-2"></span>
-          Reports
+        <a class="nav-link {{leftNavBarActive('account.create')}}" href="{{route('account.create')}}">
+          <span data-feather="file"></span>
+          Create Account
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
-          <span data-feather="layers"></span>
-          Integrations
-        </a>
-      </li> --}}
+
     </ul>
     @if(\Auth::user()->admin)
         @include('admin.partials.leftNavBar')

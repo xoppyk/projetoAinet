@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\User;
+use App\AccountType;
 use Illuminate\Http\Request;
 use \App\Movement;
 
@@ -13,47 +14,63 @@ class AccountController extends Controller
 
     public function ofUser(User $user)
     {
-        $accounts = Account::withTrashed()->where('owner_id', $user->id)->paginate(static::NUM_PER_PAGE);
+        $accounts = Account::withTrashed()->where('owner_id', $user->id)->with('accountType')->paginate(static::NUM_PER_PAGE);
         // $accounts = $user->accounts()->with('accountType')->paginate(static::NUM_PER_PAGE);
         return view('accounts.ofUser', compact('accounts', 'user'));
     }
 
     public function ofUserOpened(User $user)
     {
-        $accounts = $user->accounts()->where('deleted_at', null)->paginate(static::NUM_PER_PAGE);
+        $accounts = Account::where('owner_id', \Auth::id())->with('accountType')->paginate(static::NUM_PER_PAGE);
         return view('accounts.ofUser', compact('accounts', 'user'));
     }
 
     public function ofUserClosed(User $user)
     {
-        $accounts = Account::onlyTrashed()->where('owner_id', $user->id)->paginate(static::NUM_PER_PAGE);
+        $accounts = Account::onlyTrashed()->where('owner_id', $user->id)->with('accountType')->paginate(static::NUM_PER_PAGE);
 
         // $accounts = $user->accounts()->whereNotNull('deleted_at')->paginate(static::NUM_PER_PAGE);
         return view('accounts.ofUser', compact('accounts', 'user'));
     }
 
-    public function destroy(Account $account){
-        
+    public function close(Account $account){
+        $this->authorize('isOwner', $account);
+
+        $account->delete();
+        return redirect()
+            ->route('accounts.ofUser', \Auth::user())
+            ->with(['type' => 'success', 'message' => 'Account closed Successfully']);
+    }
+
+    public function destroy($id) {
+        $account = Account::withTrashed()->findOrFail($id);
+
         if(!$account->movements()->get()->isEmpty() || !is_null($account->last_movement_date)){
             return abort(403, 'Can not delete account with movements');
         }
-        if(\Auth::id() != $account->owner_id){
-           return abort(403, 'Only owner can delete this account');
-        }
 
+        $this->authorize('isOwner', $account);
         $account->forceDelete();
+
         return redirect()
-        ->route('accounts.ofUser', \Auth::user())
-        ->with('success', 'Account deleted successfully.');
+            ->route('accounts.ofUser', \Auth::user())
+            ->with(['type' => 'success', 'message' => 'Account deleted Successfully']);
     }
 
-    public function close(Account $account){
-        if(\Auth::id() != $account->owner_id){
-           return abort(403, 'Only owner can delete this account');
-        }
-        $account->delete();
+    public function reopen($id)
+    {
+        $account = Account::withTrashed()->findOrFail($id);
 
+        $this->authorize('isOwner', $account);
+        $account->restore();
+        return redirect()
+            ->route('accounts.ofUser', \Auth::user())
+            ->with(['type' => 'success', 'message' => 'Account restored Successfully']);
     }
 
-    
+    public function create()
+    {
+        $accountTypes = AccountType::all();
+        return view('accounts.create', compact('accountTypes'));
+    }
 }
