@@ -1,9 +1,9 @@
 <?php
 
 Route::middleware(['auth', 'associateOf'])->name('accounts.')->group(function () {
-    Route::get('/account/{user}', 'AccountController@ofUser' )->name('ofUser');
-    Route::get('/account/{user}/opened', 'AccountController@ofUserOpened' )->name('ofUserOpened');
-    Route::get('/account/{user}/closed', 'AccountController@ofUserClosed' )->name('ofUserClosed');
+    Route::get('/accounts/{user}', 'AccountController@ofUser' )->name('ofUser');
+    Route::get('/accounts/{user}/opened', 'AccountController@ofUserOpened' )->name('ofUserOpened');
+    Route::get('/accounts/{user}/closed', 'AccountController@ofUserClosed' )->name('ofUserClosed');
 });
 
 Route::middleware(['auth'])->name('accounts.')->group(function () {

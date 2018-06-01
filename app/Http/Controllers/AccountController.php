@@ -13,7 +13,8 @@ class AccountController extends Controller
 
     public function ofUser(User $user)
     {
-        $accounts = $user->accounts()->with('accountType')->paginate(static::NUM_PER_PAGE);
+        $accounts = Account::withTrashed()->where('owner_id', $user->id)->paginate(static::NUM_PER_PAGE);
+        // $accounts = $user->accounts()->with('accountType')->paginate(static::NUM_PER_PAGE);
         return view('accounts.ofUser', compact('accounts', 'user'));
     }
 
@@ -25,7 +26,9 @@ class AccountController extends Controller
 
     public function ofUserClosed(User $user)
     {
-        $accounts = $user->accounts()->whereNotNull('deleted_at')->paginate(static::NUM_PER_PAGE);
+        $accounts = Account::onlyTrashed()->where('owner_id', $user->id)->paginate(static::NUM_PER_PAGE);
+
+        // $accounts = $user->accounts()->whereNotNull('deleted_at')->paginate(static::NUM_PER_PAGE);
         return view('accounts.ofUser', compact('accounts', 'user'));
     }
 
