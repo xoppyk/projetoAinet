@@ -157,7 +157,7 @@ class UserStory13Test extends UserStoryTestCase
             ['associated_user_id' => $this->mainUser->id, 'main_user_id' => $user2->id]
         ]);
 
-        $response = $this->actingAs($this->mainUser)
+        $this->actingAs($this->mainUser)
             ->get('me/associate-of')
             ->assertStatus(200)
             ->assertSeeAll([
