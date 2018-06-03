@@ -23,6 +23,8 @@
                 <td> {{$account->accountType->name}} </td>
                 <td> {{$account->current_balance}} </td>
                 <td>
+                    <a href="{{route('movements.index', $account)}}" class="btn btn-info">Movements</a>
+                    <a href="{{route('account.edit', $account)}}" class="btn btn-primary">Edit</a>
                     @if (!$account->trashed())
                             <form action="{{route('account.close', $account)}}" method="POST" role="form" class="inline">
                                 @method('patch')

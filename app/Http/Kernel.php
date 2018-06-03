@@ -62,5 +62,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\IsAdmin::class,
         'himself' => \App\Http\Middleware\IsHimself::class,
         'associateOf' => \App\Http\Middleware\IsAssociate::class,
+        'ownerOfAccount' => \App\Http\Middleware\OwnerOfAccount::class,
     ];
 }
