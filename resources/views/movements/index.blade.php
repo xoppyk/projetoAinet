@@ -25,7 +25,13 @@
                 <td> {{$movement->value}} </td>
                 <td> {{$movement->type}} </td>
                 <td> {{$movement->end_balance}} </td>
-                <td> <a href="#"></a> </td>
+                <td><a href="{{route('movements.edit', $movement)}}" class="btn btn-primary">Edit</a>
+                    <form action="{{route('movements.destroy', $movement)}}" method="POST" role="form" class="inline">
+                    @method('delete')
+                    @csrf
+                    <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                </form>
+                </td>
             </tr>
         @endforeach
             </tbody>

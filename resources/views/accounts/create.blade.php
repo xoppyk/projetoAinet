@@ -42,17 +42,17 @@
         	            <label class="col-lg-3 control-label">Date: </label>
                         <div class="col-lg-8" id="sandbox-container">
                             <input type="text" class="form-control" name="date" value="{{old('date')}}" autocomplete="off">
+                            @if ($errors->has('date'))
+                                <small class="text-danger">
+                                    {{ $errors->first('date') }}
+                                </small>
+                            @endif
                         </div>
                         <script type="text/javascript">
                             $('#sandbox-container input').datepicker({
                                 format: "yyyy/mm/dd"
                             });
                         </script>
-                        @if ($errors->has('date'))
-                            <div class="invalid-feedback">
-                                {{ $errors->first('date') }}
-                            </div>
-                        @endif
         	      	</div>
 
                     {{-- Account Type --}}
@@ -63,7 +63,7 @@
                             <select name="account_type_id" class="form-control">
                                 <option disabled selected> -- select a account type -- </option>
                                 @foreach ($accountTypes as $accountType)
-                                    <option value="{{$accountType->id}}" {{old('account_type_id') == $accountType->id ? 'selected' : ''}}>{{$accountType->name}}</option>
+                                    <option value="{{$accountType->id}}" {{is_selected(old('account_type_id'), $accountType->id)}}>{{$accountType->name}}</option>
                                 @endforeach
                             </select>
                             @if ($errors->has('account_type_id'))

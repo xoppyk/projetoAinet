@@ -2,7 +2,7 @@
 
 function is_selected($current, $expected, $output = 'selected')
 {
-    if ($current === $expected) {
+    if ($current == $expected) {
         return $output;
     }
 }

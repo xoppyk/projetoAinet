@@ -30,7 +30,7 @@ class AccountStoreRequest extends FormRequest
             'code' => ['required', Rule::unique('accounts')->where(function ($query) {
                 return $query->where('owner_id', \Auth::id());
             })],
-            'date' => 'nullable|date',
+            'date' => 'required|date',
             'start_balance' => 'required|numeric',
             'description' => 'nullable|string'
         ];
