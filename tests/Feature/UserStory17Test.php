@@ -159,7 +159,7 @@ class UserStory17Test extends BaseAccountsTest
         $data['owner_id'] = $this->mainUser->id;
         $data['current_balance'] = $data['start_balance'];
         $data['last_movement_date'] = null;
-
+        
         $this->assertDatabaseHas('accounts', $data);
 
         $storedAccount = DB::table('accounts')->where($data)->first();

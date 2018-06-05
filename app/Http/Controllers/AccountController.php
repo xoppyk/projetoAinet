@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use DateTime;
-
 use App\Account;
-use App\User;
 use App\AccountType;
-use Illuminate\Http\Request;
-use \App\Movement;
-
 use App\Http\Requests\AccountStoreRequest;
 use App\Http\Requests\AccountUpdateRequest;
+use App\User;
+use Carbon\Carbon;
+use DateTime;
+use Illuminate\Http\Request;
+use \App\Movement;
 
 class AccountController extends Controller
 {
@@ -81,22 +80,17 @@ class AccountController extends Controller
     public function store(AccountStoreRequest $request)
     {
         $validated = $request->validated();
-        $validated['date'] = $this->validateData($validated['date']);
+        if(!isset($validated['date'])){
+            $validated['date']=Carbon::now()->format('Y-m-d');
+        }
         $validated['owner_id'] = \Auth::id();
+        $validated['current_balance'] = $validated['start_balance'];
         Account::create($validated);
         return redirect()
             ->route('accounts.ofUser', \Auth::user())
             ->with(['type' => 'success', 'message' => 'Account Added Successfully']);
     }
 
-    private function validateData($dateToValidate)
-    {
-        if ($dateToValidate != null) {
-            $date = DateTime::createFromFormat('d/m/Y H:i:s', $dateToValidate.'00:00:00');
-            return $date->format('Y-m-d H:i:s');
-        }
-        return \Carbon\Carbon::now();
-    }
 
     public function edit(Account $account)
     {
