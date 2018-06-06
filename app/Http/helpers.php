@@ -48,3 +48,14 @@ function leftNavBarActive($value)
 {
     return $value == Route::currentRouteName() ? 'active' : '';
 }
+
+function calculateEndBalance($startBalance, $value, $type)
+{
+    if ($type === 'revenue') {
+        return $startBalance + $value;
+    } elseif ($type === 'expense') {
+        return $startBalance - $value;
+    } else {
+        return 'some wrong';
+    }
+}

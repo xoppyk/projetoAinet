@@ -102,7 +102,7 @@ class AccountController extends Controller
     {
         $validated = $request->validated();
         if ($validated['start_balance'] != $account->start_balance) {
-            $this->recalculateBalance($account);
+            $this->recalculateBalance($account, $validated['start_balance']);
         }
         $account->fill($validated);
         $account->save();
@@ -112,8 +112,17 @@ class AccountController extends Controller
             ->with(['type' => 'success', 'message' => 'Account Edited Successfully']);
     }
 
-    private function recalculateBalance($account)
+    private function recalculateBalance($account, $newStartBalance)
     {
-        // TODO fazer
+        $movementsOfAccount = $account->movements()->orderBy('created_at', 'asc')->get();
+
+        foreach ($movementsOfAccount as $movement) {
+            $movement->start_balance = $newStartBalance;
+            $newStartBalance = calculateEndBalance($newStartBalance, $movement->value, $movement->type);
+            $movement->end_balance = $newStartBalance;
+            $movement->save();
+        }
+        $account->current_balance = $newStartBalance;
+        $account->save();
     }
 }
