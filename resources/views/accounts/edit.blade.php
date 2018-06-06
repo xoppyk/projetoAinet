@@ -36,7 +36,25 @@
         	                @endif
         	            </div>
         	      	</div>
+                    {{-- Created Date --}}
 
+                    <div class="form-group">
+                        <label class="col-lg-3 control-label">Date: </label>
+                        <div class="col-lg-8" id="sandbox-container">
+                            <input type="text" class="form-control" name="date" value="{{old('date', $account->date)}}" autocomplete="off">
+                            @if ($errors->has('date'))
+                                <small class="text-danger">
+                                    {{ $errors->first('date') }}
+                                </small>
+                            @endif
+                        </div>
+                        <script type="text/javascript">
+                            $('#sandbox-container input').datepicker({
+                                format: "yyyy/mm/dd"
+                            });
+                        </script>
+                    </div>
+                    
                     {{-- Account Type --}}
 
                         <div class="form-group">

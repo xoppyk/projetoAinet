@@ -32,7 +32,8 @@ class AccountUpdateRequest extends FormRequest
                 return $query->where('owner_id', \Auth::id());
             })->ignore($account->code, 'code')],
             'start_balance' => 'required|numeric',
-            'description' => 'nullable|string'
+            'description' => 'nullable|string',
+            'date' => 'required|date'
         ];
     }
 }
