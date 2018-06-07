@@ -30,6 +30,7 @@
                     @method('delete')
                     @csrf
                     <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                    <a href="{{route('documents.create', $movement->id)}}" class="btn btn-primary">Add Document</a>
                 </form>
                 </td>
             </tr>

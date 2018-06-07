@@ -56,6 +56,6 @@ function calculateEndBalance($startBalance, $value, $type)
     } elseif ($type === 'expense') {
         return $startBalance - $value;
     } else {
-        return 'some wrong';
+        return 'something wrong';
     }
 }

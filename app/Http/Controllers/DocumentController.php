@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DocumentStoreRequest;
+use App\Movement;
 use Illuminate\Http\Request;
 
 class DocumentController extends Controller
@@ -21,9 +23,9 @@ class DocumentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Movement $movement)
     {
-        //
+        return view('documents.create', compact('movement'));    
     }
 
     /**
@@ -32,9 +34,14 @@ class DocumentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DocumentStoreRequest $request)
     {
-        //
+        $document = $request -> validated();
+        $movement = Movement::findOrFail($request->input('movement_id'));
+        $document_file_path = $request->file('document_file')->storeAs('documents/'.$movement->account_id, $movement->id);
+        dd($document, $movement, $document_file_path);
+
+        // $document = $request->validated();
     }
 
     /**
