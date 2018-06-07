@@ -6,7 +6,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AccountStoreRequest extends FormRequest
+class MovementUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +26,13 @@ class AccountStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'account_type_id' => 'required|exists:account_types,id',
-            'code' => ['required', Rule::unique('accounts')->where(function ($query) {
-                return $query->where('owner_id', \Auth::id());
-            })],
-            'date' => 'nullable|date',
-            'start_balance' => 'required|numeric',
+            'type' => ['required', Rule::in(['expense', 'revenue'])],
+            'movement_category_id' => 'required|exists:movement_categories,id',
+            'date' => 'required|date',
+            'value' => ['required', 'numeric','min:0.1'],
             'description' => 'nullable|string',
+            'document_file' => 'nullable|mimes:png,jpeg,pdf|required_with:document_description',
+            'document_description' => 'nullable|string',
         ];
     }
 }

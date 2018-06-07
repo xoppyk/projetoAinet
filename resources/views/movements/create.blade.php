@@ -2,10 +2,24 @@
 
 @section('title', 'Add Movement')
 @section('content')
-    <form class="form-horizontal" role="form" method="POST" action="{{route('movements.store', $account)}}">
+    <form class="form-horizontal" role="form" method="POST" action="{{route('movements.store', $account)}}" enctype="multipart/form-data">
         @csrf
 		<div class="row">
 			<div class="col col-lg-9 personal-info">
+
+                {{-- Description --}}
+
+    			<div class="form-group">
+    	            <label class="col-lg-3 control-label">Description: </label>
+    	            <div class="col-lg-8">
+    	                <input class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" type="text" name="description" value="{{ old('description') }}">
+    	                @if ($errors->has('description'))
+    	                    <div class="invalid-feedback">
+    	                        {{ $errors->first('description') }}
+    	                    </div>
+    	                @endif
+    	            </div>
+    	      	</div>
 
                 {{-- Type --}}
 
@@ -78,19 +92,34 @@
     	            </div>
           		</div>
 
-                {{-- Description --}}
+                {{-- Document File--}}
 
-    			<div class="form-group">
-    	            <label class="col-lg-3 control-label">Description: </label>
-    	            <div class="col-lg-8">
-    	                <input class="form-control {{$errors->has('description') ? 'is-invalid' : ''}}" type="text" name="description" value="{{ old('description') }}">
-    	                @if ($errors->has('description'))
-    	                    <div class="invalid-feedback">
-    	                        {{ $errors->first('description') }}
-    	                    </div>
-    	                @endif
-    	            </div>
-    	      	</div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Document File: </label>
+                    <div class="col-md-8">
+                        <input type="file" name="document_file" id="document_file" class="form-control{{ $errors->has('document_file') ? ' is-invalid' : '' }}" value="{{old('document_file')}}">
+                        @if ($errors->has('document_file'))
+                            <span class="invalid-feedback">
+                                <strong>{{ $errors->first('document_file') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                {{-- Document Description --}}
+
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Document Description: </label>
+                    <div class="col-lg-8">
+                        <input class="form-control {{$errors->has('document_description') ? 'is-invalid' : ''}}" type="text" name="document_description" value="{{ old('document_description') }}">
+                        @if ($errors->has('document_description'))
+                            <div class="invalid-feedback">
+                                {{ $errors->first('document_description') }}
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
 
           		<div class="form-group">
     		        <label class="col-md-3 control-label"></label>

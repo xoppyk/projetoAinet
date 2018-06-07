@@ -73,7 +73,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //FIXME Perguntar ao storo
         if (!empty($data['profile_photo'])) {
             $photo_name = basename($data['profile_photo']->store('profiles','public'));
         }

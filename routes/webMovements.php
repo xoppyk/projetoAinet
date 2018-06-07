@@ -7,8 +7,8 @@ Route::middleware(['auth', 'ownerOfAccount'])->name('movements.')->group(functio
     Route::post('movements/{account}/create', 'MovementController@store' )->name('store');
 });
 
-Route::middleware('auth')->name('movements.')->group(function () {
-    Route::get('movements/{movement}/edit', 'MovementController@edit' )->name('edit');
-    Route::put('movements/{movement}', 'MovementController@update' )->name('update');
-    Route::delete('movements/{movement}', 'MovementController@destroy' )->name('destroy');
+Route::middleware(['auth', 'ownerOfMovement'])->name('movement.')->group(function () {
+    Route::get('movement/{movement}', 'MovementController@edit' )->name('edit');
+    Route::put('movement/{movement}', 'MovementController@update' )->name('update');
+    Route::delete('movement/{movement}', 'MovementController@destroy' )->name('destroy');
 });

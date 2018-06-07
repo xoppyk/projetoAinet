@@ -33,8 +33,8 @@ class MovementStoreRequest extends FormRequest
                 'date' => 'required|date',
                 'value' => ['required', 'numeric','min:0.1'],
                 'description' => 'nullable|string',
-                'document_file' => 'nullable|file',
-                'document_description' =>  'nullable|string'
+                'document_file' => 'nullable|mimes:png,jpeg,pdf|required_with:document_description',
+                'document_description' => 'nullable|string',
         ];
     }
 }

@@ -16,7 +16,7 @@ Route::get('/', 'WelcomeController@showWelcomePage');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::post('dashboard/{user}', 'DashboardController@show' )->name('dashboard.show');
+Route::get('dashboard/{user}', 'DashboardController@show' )->name('dashboard.show')->middleware(['auth', 'himself']);
 
 require('webUsers.php');
 require('webMe.php');

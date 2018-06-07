@@ -63,5 +63,6 @@ class Kernel extends HttpKernel
         'himself' => \App\Http\Middleware\IsHimself::class,
         'associateOf' => \App\Http\Middleware\IsAssociate::class,
         'ownerOfAccount' => \App\Http\Middleware\OwnerOfAccount::class,
+        'ownerOfMovement' => \App\Http\Middleware\OwnerOfMovemente::class,
     ];
 }

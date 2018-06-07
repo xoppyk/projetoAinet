@@ -3,7 +3,7 @@
 @section('title', 'Create Account')
 @section('content')
 
-        <form class="form-horizontal" role="form" method="POST" action="{{route('account.store')}}">
+        <form class="form-horizontal" role="form" method="POST" action="{{route('account.store')}}" enctype="multipart/form-data">
             @csrf
 			<div class="row">
     			<div class="col col-lg-9 personal-info">

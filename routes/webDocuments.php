@@ -1,4 +1,9 @@
-<?php 
-Route::post('documents/{movement}', 'DocumentController@store' )->name('documents.store');
-Route::delete('documents/{movement}', 'DocumentController@destroy' )->name('documents.destroy');
-Route::get('documents/{movement}', 'DocumentController@create' )->name('documents.create');
+<?php
+
+// Route::middleware(['auth', 'ownerOfMovement'])->group(function () {
+Route::middleware(['auth'])->group(function () {
+    Route::post('documents/{movement}', 'DocumentController@store' )->name('documents.store');
+    Route::delete('document/{document}', 'DocumentController@destroy' )->name('document.delete');
+    Route::get('document/{document}/create', 'DocumentController@create' )->name('document.create');
+    Route::get('document/{document}', 'DocumentController@show' )->name('document.show');
+});

@@ -90,4 +90,13 @@ class ProfileController extends Controller
         return view('me.associatesOf', compact('associatesOf'));
     }
 
+    public function destroyAssociates(User $user)
+    {
+        $authUser = \Auth::user();
+        $authUser->associates()->detach($user);
+        return redirect()
+            ->route('me.associates')
+            ->with(['type' => 'success', 'message' => 'User disassociate With Success']);
+    }
+
 }

@@ -313,6 +313,8 @@ class UserStory21BTest extends BaseAccountsTest
             'date' => $movement->date,
             'value' => $movement->value,
         ];
+        //TODO Perguntar ao prof 
+        $data['type'] = 'expense';
 
         $this->actingAs($this->mainUser)
             ->put('/movement/'.$movement->id, $data)
@@ -321,7 +323,6 @@ class UserStory21BTest extends BaseAccountsTest
             ]);
 
         $data['id'] = $movement->id;
-        $data['type'] = 'expense';
         $data['created_at'] = $movement->created_at;
 
         $this->assertDatabaseHas('movements', $data);
@@ -342,6 +343,7 @@ class UserStory21BTest extends BaseAccountsTest
             'date' => $movement->date,
             'value' => $movement->value,
         ];
+        $data['type'] = 'revenue';
 
         $this->actingAs($this->mainUser)
             ->put('/movement/'.$movement->id, $data)
@@ -350,7 +352,6 @@ class UserStory21BTest extends BaseAccountsTest
             ]);
 
         $data['id'] = $movement->id;
-        $data['type'] = 'revenue';
         $data['created_at'] = $movement->created_at;
 
         $this->assertDatabaseHas('movements', $data);
@@ -360,6 +361,7 @@ class UserStory21BTest extends BaseAccountsTest
     /** @test */
     public function update_use_proper_rule_to_validate_movement_category_id()
     {
+        //TODO PERGUNTAR ??
         // @codingStandardsIgnoreEnd
         // Given, When, Then
         DB::table('movement_categories')->insert(['id' => 2000000, 'name' => 'just a new type', 'type' => 'expense']);

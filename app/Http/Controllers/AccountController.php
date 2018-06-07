@@ -83,6 +83,7 @@ class AccountController extends Controller
         if(!isset($validated['date'])){
             $validated['date']=Carbon::now()->format('Y-m-d');
         }
+
         $validated['owner_id'] = \Auth::id();
         $validated['current_balance'] = $validated['start_balance'];
         Account::create($validated);

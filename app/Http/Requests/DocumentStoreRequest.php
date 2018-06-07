@@ -24,8 +24,8 @@ class DocumentStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'document_file' => 'required|mimes:png,jpeg,pdf',
-            'document_description' => 'required|string',        
+            'document_file' => 'required|mimes:png,jpeg,pdf|required_with:document_description',
+            'document_description' => 'required|string',
         ];
     }
 }

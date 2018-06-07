@@ -5,8 +5,9 @@
         <form class="form-horizontal" role="form" method="POST" action="{{route('documents.store', $movement->id)}}" enctype="multipart/form-data">
             @csrf
     			<div class="col col-lg-9 personal-info">
-                    
+
                     {{-- Document File --}}
+
                     <div class="form-group">
                         <label class="col-lg-3 control-label">Document File: </label>
                         <div class="col-lg-8">
@@ -16,10 +17,11 @@
                                     {{ $errors->first('document_file') }}
                                 </small>
                             @endif
-                        </div>  
+                        </div>
                     </div>
 
                     {{-- Document Description --}}
+
         			<div class="form-group">
         	            <label class="col-lg-3 control-label">Document Description: </label>
         	            <div class="col-lg-8">
@@ -31,11 +33,6 @@
         	                @endif
         	            </div>
         	      	</div>
-
-                    {{--  hidden Movement id --}}
-
-
-
 
               		<div class="form-group">
         		        <label class="col-md-3 control-label"></label>

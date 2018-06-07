@@ -311,7 +311,6 @@ class UserStory21ATest extends BaseAccountsTest
 
         $data['account_id'] = $account->id;
         $data['type'] = 'expense';
-        dd($data);
         $this->assertDatabaseHas('movements', $data);
         $this->assertDatabaseMissing('movements', ['created_at' => null]);
     }

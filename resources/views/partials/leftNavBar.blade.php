@@ -2,7 +2,7 @@
   <div class="sidebar-sticky">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link {{leftNavBarActive('dashboard')}}" href="#">
+        <a class="nav-link {{leftNavBarActive('dashboard')}}" href="{{route('dashboard.show', \Auth::id())}}">
           <span data-feather="home"></span>
           Dashboard <span class="sr-only">(current)</span>
         </a>

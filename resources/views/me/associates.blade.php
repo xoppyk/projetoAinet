@@ -8,6 +8,7 @@
         <tr class="text-center">
             <th scope="col">Name</th>
             <th scope="col">Email</th>
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +16,13 @@
         <tr class="text-center">
             <td>{{$user->name}}</td>
             <td> {{$user->email}} </td>
+            <td>
+                <form action="{{route('me.deleteAssociates', $user->id)}}" method="POST" role="form" class="inline">
+                    @method('delete')
+                    @csrf
+                    <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                </form>
+            </td>
         </tr>
     @endforeach
         </tbody>

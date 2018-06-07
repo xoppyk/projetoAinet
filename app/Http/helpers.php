@@ -59,3 +59,11 @@ function calculateEndBalance($startBalance, $value, $type)
         return 'something wrong';
     }
 }
+
+function differentType($type)
+{
+    if ($type === 'revenue' ) {
+        return 'expense';
+    }
+    return 'revenue';
+}
