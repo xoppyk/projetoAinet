@@ -21,25 +21,6 @@
     	            </div>
     	      	</div>
 
-                {{-- Type --}}
-
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Type: </label>
-                    <div class="col-md-8">
-                        <select name="type" class="form-control">
-                            <option disabled selected> -- select a type -- </option>
-                                <option value="revenue" {{is_selected(old('type'), 'revenue')}}>Revenue</option>
-                                <option value="expense" {{is_selected(old('type'), 'expense')}}>Expense</option>
-                        </select>
-                        @if ($errors->has('type'))
-                            <small class="text-danger">
-                                {{ $errors->first('type') }}
-                            </small>
-                        @endif
-                    </div>
-                </div>
-
-
                 {{-- Movement Categoty --}}
 
                 <div class="form-group">

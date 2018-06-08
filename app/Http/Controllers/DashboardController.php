@@ -13,9 +13,9 @@ class DashboardController extends Controller
         $allAccount = $user->accounts();
         $accountSum = $user->accounts()->pluck('current_balance')->sum();
         foreach ($allAccount as $account) {
-            $account->attributes['percentage'] = 'yes';
+            // $account->percentage = 'valor';
         }
-        //TODO Perguntar
+        // fazer um met
         return view('dashboard.show', compact('accountSum'));
     }
 }

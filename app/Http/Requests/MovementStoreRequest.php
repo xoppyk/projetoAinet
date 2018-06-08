@@ -28,7 +28,6 @@ class MovementStoreRequest extends FormRequest
     {
         // $account = Route::current()->parameter('account');
         return [
-                'type' => ['required', Rule::in(['expense', 'revenue'])],
                 'movement_category_id' => 'required|exists:movement_categories,id',
                 'date' => 'required|date',
                 'value' => ['required', 'numeric','min:0.1'],

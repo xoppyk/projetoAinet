@@ -36,8 +36,9 @@ class MovementController extends Controller
         $validated = $request->validated();
 
         $movement->fill($validated);
-        //TODO perguntar ao stor é memso assim para passar no teste ?
-        $movement->value = (int)$movement->value;
+        $movement->type = $movement->movementCategorie->type;
+
+        $movement->value = $movement->value;
 
         $movement->account_id = $account->id;
         $movement->start_balance = $account->current_balance;
@@ -72,21 +73,10 @@ class MovementController extends Controller
     public function update(MovementUpdateRequest $request, Movement $movement)
     {
         $validated = $request->validated();
-        //TODO Perguntar ao stor devolve a collection ??? why
-        $account = $movement->account()->first();
-        // dd($account);
-        if ($movement->value != $validated['value'] || $movement->type != $validated['type'] ) {
-            $old_endBalance = $movement->end_balance;
-            $movement->end_balance = calculateEndBalance($movement->start_balance, $validated['value'], $validated['type']);
+        $account = $movement->account;
 
-            // $account->current_balance += ($movement->end_balance-$old_endBalance);
-            //TODO VER MELHOR
-            if ($movement->type != $validated['type']) {
-                $movement->value += $validated['value'];
-            } else {
-                $movement->value -= abs($validated['value']);
-            }
-            // $account->current_balance = calculateEndBalance($account->current_balance, $movement->value, $validated['type']);
+        if ($movement->date != $validated['date'] || $movement->value != $validated['value'] || $movement->movement_category_id->type != $validated['movement_category_id']->type) {
+            calculateBalanceFromDate($movement);
         }
 
         $movement->fill($validated);
@@ -113,8 +103,7 @@ class MovementController extends Controller
 
     public function destroy(Movement $movement)
     {
-        //TODO PERGUNTAR ao prof tem que recalcular
-
+        //pegar no end balance do seguinte
         if (isset($movement->document_id)) {
             $document = $movement->document()->first();
             Storage::delete('/documents/'.$movement->account_id.'/'.$movement->id.'.'.$document->type);

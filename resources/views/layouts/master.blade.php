@@ -10,10 +10,8 @@
     <title>Projeto Ainet</title>
 
     <!-- Bootstrap core CSS -->
-    {{-- <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet"> --}}
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> --}}
-    {{-- TODO : perguntar ao Prof --}}
+
     <link href="/css/dashboard.css" rel="stylesheet">
     <!-- Custom styles for this template -->
 
@@ -23,7 +21,7 @@
     {{-- Date Picker --}}
     <link href="/css/bootstrap-datepicker.min.css" rel="stylesheet">
     <script src="/js/bootstrap-datepicker.min.js"></script>
-    
+
   </head>
   <body>
 

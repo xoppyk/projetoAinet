@@ -7,26 +7,7 @@
         @method('put')
 		<div class="row">
 			<div class="col col-lg-9 personal-info">
-
-                {{-- Type --}}
-
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Type: </label>
-                    <div class="col-md-8">
-                        <select name="type" class="form-control">
-                            <option disabled selected> -- select a type -- </option>
-                                <option value="revenue" {{is_selected(old('type', $movement->type), 'revenue')}}>Revenue</option>
-                                <option value="expense" {{is_selected(old('type', $movement->type), 'expense')}}>Expense</option>
-                        </select>
-                        @if ($errors->has('type'))
-                            <small class="text-danger">
-                                {{ $errors->first('type') }}
-                            </small>
-                        @endif
-                    </div>
-                </div>
-
-
+                
                 {{-- Movement Categoty --}}
 
                 <div class="form-group">
@@ -112,7 +93,6 @@
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Document Description: </label>
                     <div class="col-lg-8">
-                        {{-- TODO PERGUNTAR AO PROF devia dar --}}
                         {{-- @dd($movement->document->description; --}}
                         <input class="form-control {{$errors->has('document_description') ? 'is-invalid' : ''}}" type="text" name="document_description" value="{{ old('document_description') }}">
 

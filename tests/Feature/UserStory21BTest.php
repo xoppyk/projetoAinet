@@ -313,14 +313,14 @@ class UserStory21BTest extends BaseAccountsTest
             'date' => $movement->date,
             'value' => $movement->value,
         ];
-        //TODO Perguntar ao prof 
-        $data['type'] = 'expense';
 
         $this->actingAs($this->mainUser)
             ->put('/movement/'.$movement->id, $data)
             ->assertSessionHasNoErrors([
                 'value', 'movement_category_id', 'date', 'description', 'document_file', 'document_description'
             ]);
+
+        $data['type'] = 'expense';
 
         $data['id'] = $movement->id;
         $data['created_at'] = $movement->created_at;
@@ -361,7 +361,7 @@ class UserStory21BTest extends BaseAccountsTest
     /** @test */
     public function update_use_proper_rule_to_validate_movement_category_id()
     {
-        //TODO PERGUNTAR ??
+        //TODO PERGUNTAR ?? pk nao passa
         // @codingStandardsIgnoreEnd
         // Given, When, Then
         DB::table('movement_categories')->insert(['id' => 2000000, 'name' => 'just a new type', 'type' => 'expense']);

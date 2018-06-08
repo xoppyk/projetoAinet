@@ -26,7 +26,6 @@ class MovementUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'type' => ['required', Rule::in(['expense', 'revenue'])],
             'movement_category_id' => 'required|exists:movement_categories,id',
             'date' => 'required|date',
             'value' => ['required', 'numeric','min:0.1'],

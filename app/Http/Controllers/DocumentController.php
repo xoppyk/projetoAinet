@@ -40,8 +40,7 @@ class DocumentController extends Controller
 
     public function destroy(Document $document)
     {
-        //TODO Perguntar ao prof 1 Document -> 1 Movimento ??? como é MUITO IMPORTANTE TAMBEM PARA O SHOW DOCUMENT QUAL é a relação
-        
+
         Storage::delete('/documents/'.$document->movement->account_id.'/'.$document->movement->id.'.'.$document->type);
         $movement->document()->dissociate();
         $movement->delete();

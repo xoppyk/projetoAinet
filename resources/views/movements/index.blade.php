@@ -36,7 +36,7 @@
                     @else
                         <a href="{{route('document.create', $movement->id)}}" class="btn btn-primary">Add Document</a>
                     @endif
-                    <form action="{{route('movement.destroy', $movement->document_id)}}" method="POST" role="form" class="inline">
+                    <form action="{{route('movement.destroy', $movement->id)}}" method="POST" role="form" class="inline">
                         @method('delete')
                         @csrf
                         <button type="submit" class="btn btn-xs btn-danger">Delete</button>

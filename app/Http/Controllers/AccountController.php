@@ -116,7 +116,7 @@ class AccountController extends Controller
     private function recalculateBalance($account, $newStartBalance)
     {
         $movementsOfAccount = $account->movements()->orderBy('created_at', 'asc')->get();
-
+        
         foreach ($movementsOfAccount as $movement) {
             $movement->start_balance = $newStartBalance;
             $newStartBalance = calculateEndBalance($newStartBalance, $movement->value, $movement->type);
