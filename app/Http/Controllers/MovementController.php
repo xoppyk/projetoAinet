@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Account;
 use App\Document;
-use App\Movement;
-use App\MovementCategorie;
-use Illuminate\Http\Request;
-
-
 use App\Http\Requests\MovementStoreRequest;
 use App\Http\Requests\MovementUpdateRequest;
-
+use App\Movement;
+use App\MovementCategorie;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class MovementController extends Controller
@@ -40,6 +38,8 @@ class MovementController extends Controller
         $movement->start_balance = 0;
         $movement->end_balance = 0;
         $movement->account_id = $account->id;
+        $date_of_creation = Carbon::now()->format('Y-m-d H:i:s');
+        $movement->created_at = $date_of_creation;
         $movement->save();
         reCalculateBalanceFromDate($movement->date,$account);
         
@@ -48,12 +48,12 @@ class MovementController extends Controller
             $document = new Document;
             $document->type = $validated['document_file']->extension();
             $document->description = $validated['document_description'] ?? '';
-            $document->original_name = 'invoice.'.$document->type;
+            $document->original_name = $validated['document_file']->name;
+            $document->created_at = $date_of_creation;
             $document->save();
             $movement->document()->associate($document);
             $movement->save();
             $request->file('document_file')->storeAs('documents/'.$movement->account_id, $movement->id.'.'.$document->type);
-            // dd($document, $movement);
         }
 
         return redirect()

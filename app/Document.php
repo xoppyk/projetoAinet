@@ -9,7 +9,7 @@ class Document extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'type', 'original_name', 'description',
+        'type', 'original_name', 'description', 'created_at',
     ];
 
     public function movements()

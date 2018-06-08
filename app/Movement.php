@@ -9,7 +9,7 @@ class Movement extends Model
     public $timestamps = false;
     
     protected $fillable = [
-        'account_id', 'movement_category_id', 'date', 'value', 'start_balance', 'end_balance', 'description', 'type', 'document_id',
+        'account_id', 'movement_category_id', 'date', 'value', 'start_balance', 'end_balance', 'description', 'type', 'document_id', 'created_at',
     ];//end_balance e start_balance podem ser calculados através do value introduzido???
 
     public function document()

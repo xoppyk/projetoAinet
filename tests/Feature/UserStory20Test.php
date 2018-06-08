@@ -54,7 +54,7 @@ class UserStory20Test extends BaseAccountsTest
         $this->response = $this->actingAs($this->mainUser)
             ->get('/movements/'.$account->id)
             ->assertSuccessful();
-
+        
         $this->assertOrderedMovements();
     }
 
