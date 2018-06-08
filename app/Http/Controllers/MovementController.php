@@ -20,7 +20,7 @@ class MovementController extends Controller
 
     public function index(Account $account)
     {
-        $movements = $account->movements()->with('movementCategorie')->orderBy('date', 'desc')->paginate(static::NUM_PER_PAGE);
+        $movements = $account->movements()->with('movementCategorie')->orderBy('date', 'asc')->paginate(static::NUM_PER_PAGE);
         return view('movements.index', compact('movements', 'account'));
     }
 
@@ -37,15 +37,12 @@ class MovementController extends Controller
 
         $movement->fill($validated);
         $movement->type = $movement->movementCategorie->type;
-
-        $movement->value = $movement->value;
-
+        $movement->start_balance = 0;
+        $movement->end_balance = 0;
         $movement->account_id = $account->id;
-        $movement->start_balance = $account->current_balance;
-        $movement->end_balance = calculateEndBalance($movement->start_balance, $movement->value, $movement->type);
-        $account->current_balance = $movement->end_balance;
-        $account->save();
         $movement->save();
+        reCalculateBalanceFromDate($movement->date,$account);
+        
 
         if (isset($validated['document_file'])) {
             $document = new Document;

@@ -54,9 +54,9 @@ function leftNavBarActive($value)
 function calculateEndBalance($startBalance, $value, $type)
 {
     if ($type === 'revenue') {
-        return $startBalance + $value;
+        return (to_cents($startBalance) + to_cents($value))/100;
     } elseif ($type === 'expense') {
-        return $startBalance - $value;
+        return (to_cents($startBalance) - to_cents($value))/100;
     } else {
         return 'something wrong';
     }
@@ -75,34 +75,32 @@ function to_cents($value)
     return bcmul($value, 100, 0);
 }
 
-function calculateBalanceFromDate($date, $movement)
+function reCalculateBalanceFromDate($date, $account)
 {
-    $account = $movement->account;
-    $oldStartBalance = getFirstMovementBeforeDate($date, $account->id);
-    $startBalance = $oldStartBalance->end_balance;
-
-
-    $allMovements = getAllMovemetFromDate($date, $account->id);
-
-    if (empty($oldStartBalance)) {
+    $movementBeforeDate = getFirstMovementBeforeDate($date, $account->id);
+    if (empty($movementBeforeDate)) {
         $startBalance = $account->start_balance;
+    }else{
+        $startBalance = $movementBeforeDate->end_balance;
     }
-
-    foreach ($allMovements as $mov) {
+    $movementsToRecalculate = getAllMovemetFromDate($date, $account->id);
+    
+    foreach ($movementsToRecalculate as $mov) {
         $mov->start_balance = $startBalance;
         $mov->end_balance = calculateEndBalance($mov->start_balance, $mov->value, $mov->type);
         $mov->save();
-
         $startBalance = $mov->end_balance;
     }
+    $account->current_balance = $movementsToRecalculate->last()->end_balance;
+    $account->save();
 }
 
 function getAllMovemetFromDate($date, $account_id)
 {
-    return $allMovementsFrom = Movement::where(['account_id', $account_id], ['date', '>=', $date])->orderBy('date', 'asc');
+    return $allMovementsFrom = Movement::where('date', '>=', $date)->where('account_id','=', $account_id)->orderBy('date', 'asc')->get();
 }
 
 function getFirstMovementBeforeDate($date, $account_id)
 {
-    return $date = Movement::where(['account_id', $account_id], ['date', '<', $date])->orderBy('date', 'desc')->first();
+    return $movement = Movement::where('date', '<', $date)->where('account_id', '=', $account_id)->orderBy('date', 'desc')->first();
 }
