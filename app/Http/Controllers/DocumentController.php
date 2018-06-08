@@ -28,7 +28,7 @@ class DocumentController extends Controller
 
         $document->type = $validated['document_file']->extension();
         $document->description = $validated['document_description'] ?? '';
-        $document->original_name = 'invoice.'.$document->type;
+        $document->original_name = $validated['document_file']->name;
         // $document->save();
 
         $request->file('document_file')->storeAs('documents/'.$movement->account_id, $movement->id.'.'.$document->type);

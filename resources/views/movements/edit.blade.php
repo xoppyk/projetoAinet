@@ -2,7 +2,7 @@
 
 @section('title', 'Add Movement')
 @section('content')
-    <form class="form-horizontal" role="form" method="POST" action="{{route('movement.update', $movement)}}" enctype="multipart/form-data">
+    <form class="form-horizontal" role="form" method="POST" action="{{route('movement.update', $movement->id)}}" enctype="multipart/form-data">
         @csrf
         @method('put')
 		<div class="row">

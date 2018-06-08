@@ -70,28 +70,24 @@ class MovementController extends Controller
     public function update(MovementUpdateRequest $request, Movement $movement)
     {
         $validated = $request->validated();
-        $account = $movement->account;
-
-        if ($movement->date != $validated['date'] || $movement->value != $validated['value'] || $movement->movement_category_id->type != $validated['movement_category_id']->type) {
-            calculateBalanceFromDate($movement);
-        }
-
         $movement->fill($validated);
+        $movement->movementCategorie()->associate($validated['movement_category_id']);
+        $movement->type = $movement->movementCategorie()->first()->type;
+        $movement->save();
 
         if (isset($validated['document_file'])) {
             $document = new Document;
             $document->type = $validated['document_file']->extension();
             $document->description = $validated['document_description'] ?? '';
-            $document->original_name = 'invoice.'.$document->type;
+            $document->original_name = $validated['document_file']->name;
+            $document->created_at = Carbon::now()->format('Y-m-d H:i:s');
             $document->save();
             $movement->document()->associate($document);
             $movement->save();
             $request->file('document_file')->storeAs('documents/'.$movement->account_id, $movement->id.'.'.$document->type);
-            // dd($document, $movement);
         }
 
-        $account->save();
-        $movement->save();
+        
 
         return redirect()
             ->route('movements.index', $movement->account_id)
@@ -110,5 +106,19 @@ class MovementController extends Controller
         return redirect()
             ->back()
             ->with(['type' => 'success', 'message' => 'Movement Deleted Successfully']);
+    }
+
+    public function addDocument(Movement $movement, $validated,$request){
+        if (isset($validated['document_file'])) {
+            $document = new Document;
+            $document->type = $validated['document_file']->extension();
+            $document->description = $validated['document_description'] ?? '';
+            $document->original_name = $validated['document_file']->name;
+            $document->created_at = $date_of_creation;
+            $document->save();
+            $movement->document()->associate($document);
+            $movement->save();
+            $request->file('document_file')->storeAs('documents/'.$movement->account_id, $movement->id.'.'.$document->type);
+        }
     }
 }
