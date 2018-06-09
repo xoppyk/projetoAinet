@@ -43,7 +43,7 @@ class DocumentController extends Controller
 
         Storage::delete('/documents/'.$document->movement->account_id.'/'.$document->movement->id.'.'.$document->type);
         $movement->document()->dissociate();
-        $movement->delete();
+        $document->delete();
         return redirect()
             ->back()
             ->with(['type' => 'success', 'message' => 'Movement Deleted Successfully']);

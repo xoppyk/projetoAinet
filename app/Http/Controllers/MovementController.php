@@ -70,11 +70,19 @@ class MovementController extends Controller
     public function update(MovementUpdateRequest $request, Movement $movement)
     {
         $validated = $request->validated();
+        if(isset($movement->document_id)){
+            $document =  $movement->document()->first();
+            Storage::delete('documents/'.$movement->account_id.'/'.$movement->id.'.'.$document->type);
+            $movement->document()->dissociate();
+            $document->delete();
+
+        }
         $movement->fill($validated);
         $movement->movementCategorie()->associate($validated['movement_category_id']);
         $movement->type = $movement->movementCategorie()->first()->type;
         $movement->save();
-
+        
+        
         if (isset($validated['document_file'])) {
             $document = new Document;
             $document->type = $validated['document_file']->extension();
