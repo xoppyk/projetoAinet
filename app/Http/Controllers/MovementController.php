@@ -116,17 +116,4 @@ class MovementController extends Controller
             ->with(['type' => 'success', 'message' => 'Movement Deleted Successfully']);
     }
 
-    public function addDocument(Movement $movement, $validated,$request){
-        if (isset($validated['document_file'])) {
-            $document = new Document;
-            $document->type = $validated['document_file']->extension();
-            $document->description = $validated['document_description'] ?? '';
-            $document->original_name = $validated['document_file']->name;
-            $document->created_at = $date_of_creation;
-            $document->save();
-            $movement->document()->associate($document);
-            $movement->save();
-            $request->file('document_file')->storeAs('documents/'.$movement->account_id, $movement->id.'.'.$document->type);
-        }
-    }
 }
