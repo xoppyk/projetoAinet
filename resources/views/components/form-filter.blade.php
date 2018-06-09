@@ -1,4 +1,4 @@
-<form class="" action="{{route($route)}}" method="GET">
+<form class="" action="{{route($route, $parameter ?? '')}}" method="GET">
     <div class="d-flex">
          {{ $slot }}
     </div>

@@ -16,7 +16,7 @@ class Account extends Model
      * @var array
      */
     protected $dates = ['deleted_at'];
-    
+
     public $timestamps = false;
 
     protected $fillable = [
@@ -36,5 +36,15 @@ class Account extends Model
     public function user()
     {
         return $this->belongsTo('App\User', 'owner_id');
+    }
+
+    public function relativeWeight($accountSum)
+    {
+        return $accountSum == 0 ? '0' : round($this->current_balance * 100 / $accountSum, 2) . '%';
+    }
+
+    public function getStatusAttribute()
+    {
+        return $this->trashed() ? 'Closed' : 'Opened';
     }
 }

@@ -14,4 +14,11 @@ class AccountPolicy
     {
         return $user->id == $account->owner_id;
     }
+
+    public function haveAccess(User $user, Account $account)
+    {
+        $users = $user->associates->pluck('id');
+        $users[] = $user->id;
+        return in_array($user->id, $users->toArray());
+    }
 }

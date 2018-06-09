@@ -79,6 +79,8 @@ class AccountController extends Controller
 
     public function store(AccountStoreRequest $request)
     {
+        $this->authorize('isOwner', $account);
+
         $validated = $request->validated();
         if(!isset($validated['date'])){
             $validated['date']=Carbon::now()->format('Y-m-d');
@@ -116,7 +118,7 @@ class AccountController extends Controller
     private function recalculateBalance($account, $newStartBalance)
     {
         $movementsOfAccount = $account->movements()->orderBy('created_at', 'asc')->get();
-        
+
         foreach ($movementsOfAccount as $movement) {
             $movement->start_balance = $newStartBalance;
             $newStartBalance = calculateEndBalance($newStartBalance, $movement->value, $movement->type);

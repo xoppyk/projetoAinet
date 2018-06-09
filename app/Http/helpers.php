@@ -84,7 +84,7 @@ function reCalculateBalanceFromDate($date, $account)
         $startBalance = $movementBeforeDate->end_balance;
     }
     $movementsToRecalculate = getAllMovemetFromDate($date, $account->id);
-    
+
     foreach ($movementsToRecalculate as $mov) {
         $mov->start_balance = $startBalance;
         $mov->end_balance = calculateEndBalance($mov->start_balance, $mov->value, $mov->type);

@@ -19,6 +19,7 @@
             <th scope="col">Name</th>
             <th scope="col">Associates</th>
             <th scope="col">Associates Of</th>
+            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +37,15 @@
                     <span>associate-of</span>
                 @endif
             </td>
+            @if(!$associates->contains($user))
+                <td>
+                    <form action="{{route('me.storeAssociates')}}" method="POST" role="form" class="inline">
+                        @csrf
+                        <input type="text" hidden name="associated_user" value="{{$user->id}}">
+                        <button type="submit" class="btn btn-xs btn-success">Associate</button>
+                    </form>
+                </td>
+            @endif
         </tr>
     @endforeach
         </tbody>

@@ -18,6 +18,8 @@ class MovementController extends Controller
 
     public function index(Account $account)
     {
+        $this->authorize('haveAccess', $account);
+
         $movements = $account->movements()->with('movementCategorie')->orderBy('date', 'asc')->paginate(static::NUM_PER_PAGE);
         return view('movements.index', compact('movements', 'account'));
     }
@@ -42,7 +44,7 @@ class MovementController extends Controller
         $movement->created_at = $date_of_creation;
         $movement->save();
         reCalculateBalanceFromDate($movement->date,$account);
-        
+
 
         if (isset($validated['document_file'])) {
             $document = new Document;
@@ -95,7 +97,7 @@ class MovementController extends Controller
             $request->file('document_file')->storeAs('documents/'.$movement->account_id, $movement->id.'.'.$document->type);
         }
 
-        
+
 
         return redirect()
             ->route('movements.index', $movement->account_id)

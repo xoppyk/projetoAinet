@@ -24,25 +24,27 @@
                 <td> {{$account->current_balance}} </td>
                 <td>
                     <a href="{{route('movements.index', $account)}}" class="btn btn-info">Movements</a>
-                    <a href="{{route('account.edit', $account)}}" class="btn btn-primary">Edit</a>
-                    @if (!$account->trashed())
-                            <form action="{{route('account.close', $account)}}" method="POST" role="form" class="inline">
+                    @can('isOwner', $account)
+                        <a href="{{route('account.edit', $account)}}" class="btn btn-primary">Edit</a>
+                        @if (!$account->trashed())
+                                <form action="{{route('account.close', $account)}}" method="POST" role="form" class="inline">
+                                    @method('patch')
+                                    @csrf
+                                    <button type="submit" class="btn btn-xs btn-warning">Close</button>
+                                </form>
+                        @else
+                            <form action="{{route('account.reopen', $account->id)}}" method="POST" role="form" class="inline">
                                 @method('patch')
                                 @csrf
-                                <button type="submit" class="btn btn-xs btn-warning">Close</button>
+                                <button type="submit" class="btn btn-xs btn-success">Reopen</button>
                             </form>
-                    @else
-                        <form action="{{route('account.reopen', $account->id)}}" method="POST" role="form" class="inline">
-                            @method('patch')
+                        @endif
+                        <form action="{{route('account.delete', $account->id)}}" method="POST" role="form" class="inline">
+                            @method('delete')
                             @csrf
-                            <button type="submit" class="btn btn-xs btn-success">Reopen</button>
+                            <button type="submit" class="btn btn-xs btn-danger">Delete</button>
                         </form>
                     @endif
-                    <form action="{{route('account.delete', $account->id)}}" method="POST" role="form" class="inline">
-                        @method('delete')
-                        @csrf
-                        <button type="submit" class="btn btn-xs btn-danger">Delete</button>
-                    </form>
                 </td>
 
             </tr>

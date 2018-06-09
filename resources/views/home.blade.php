@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'DashBoard')
+@section('title', 'Welcome')
 @section('content')
     <div class="card-body">
         @if (session('status'))
@@ -9,6 +9,6 @@
             </div>
         @endif
 
-        You are logged in!
+        Welcome Projeto Ainet
     </div>
 @endsection

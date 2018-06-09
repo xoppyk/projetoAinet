@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
         \Blade::component('components.input-name', 'nameFilter');
         \Blade::component('components.form-filter', 'formFilter');
         \Blade::component('components.input-submit', 'submitButton');
+        \Blade::component('components.input-date', 'date');
     }
 
     /**

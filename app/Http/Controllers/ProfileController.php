@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use App\User;
 
+use Illuminate\Http\Request;
+
+use Illuminate\Validation\Rule;
+
 use App\Http\Requests\UserUpdateProfile;
 use App\Http\Requests\UserUpdatePassword;
+use App\Http\Requests\AssociatedStoreRequest;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -93,10 +98,22 @@ class ProfileController extends Controller
     public function destroyAssociates(User $user)
     {
         $authUser = \Auth::user();
+        if (!in_array($user->id, $authUser->associates->pluck('id')->toArray())) {
+            return abort(404);
+        }
+
         $authUser->associates()->detach($user);
         return redirect()
             ->route('me.associates')
             ->with(['type' => 'success', 'message' => 'User disassociate With Success']);
     }
 
+    public function storeAssociates(AssociatedStoreRequest $request)
+    {
+        $validated = $request->validated();
+        \Auth::user()->associates()->attach($validated['associated_user']);
+        return redirect()
+            ->route('me.associates')
+            ->with(['type' => 'success', 'message' => 'User Associated With Success']);
+    }
 }
